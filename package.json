@@ -1,0 +1,27 @@
+{
+  "name": "clone-api-facebook",
+  "version": "1.0.0",
+  "description": "clone api of facebook",
+  "main": "index.ts",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yazaldefilimonepinto/clone-api-facebook.git"
+  },
+  "keywords": [
+    "facebook",
+    "api",
+    "clone",
+    "tdd",
+    "ddd",
+    "clean architecture"
+  ],
+  "author": "Yazalde Filimone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yazaldefilimonepinto/clone-api-facebook/issues"
+  },
+  "homepage": "https://github.com/yazaldefilimonepinto/clone-api-facebook#readme"
+}
