@@ -1,3 +1,4 @@
+
 {
   "name": "clone-api-facebook",
   "version": "1.0.0",
@@ -20,9 +21,11 @@
     "ISC"
   ],
   "scripts": {
-    "start": "index.js",
-    "test":"npx jest --watchAll",
-    "dev": "npx ts-node-dev --respawn --transpile-only --exit-child --watch src src/index"
+    "start": "node -r dotenv/config dist",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc -p tsconfig-build.json",
+    "test":"npx jest --no-cache --watchAll",
+    "dev": "npx ts-node-dev --respawn --transpile-only --exit-child --watch src src/main/index"
   },
   "dependencies": {
     "axios": "^0.24.0",
