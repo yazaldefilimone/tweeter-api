@@ -67,7 +67,7 @@
     "url": "https://github.com/yazaldefilimonepinto/clone-api-facebook/issues"
   },
   "homepage": "https://github.com/yazaldefilimonepinto/clone-api-facebook#readme",
-  "_moduleAliases": {
-    "@/": "dist/"
+  "engines": {
+    "node": "12.x"
   }
 }
