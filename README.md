@@ -78,6 +78,11 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
 * Npm Check
 * DotEnv
 * Ts-Node-Dev
+* Helmet
+* Redis
+* BcryptJs
+* Joi
+* Swagger-ui-express
 
 ## Princípios:
 * TDD
