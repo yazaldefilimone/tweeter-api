@@ -1,7 +1,7 @@
 export type UserDto = {
   name:string;
   email:string;
-  cellphone:string;
+  cellphone?:string;
   username:string;
   bio:string;
   password:string;
@@ -9,10 +9,10 @@ export type UserDto = {
 }
 
 export type CreateUserDto = {
-  id:string;
+  id?:string;
   name:string;
   email:string;
-  cellphone:string;
+  cellphone?:string;
   username:string;
   bio:string;
   password:string;
