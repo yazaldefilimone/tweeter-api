@@ -1,15 +1,15 @@
 
 export interface IcreateHash{
-  create: (data:IcreateHash.Input) => Promise<IcreateHash.OutPut>
+  create: (data:IcreateHash.Input) => Promise<IcreateHash.Output>
 }
 
 
 
-namespace IcreateHash{
+export namespace IcreateHash{
   export type Input = {
     password:string
   }
 
-  export type OutPut = string;
+  export type Output = string;
 
 }
