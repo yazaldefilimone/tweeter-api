@@ -5,7 +5,9 @@ import {
   isValidName,
   isValidEmail,
   isValidPassword,
-  isValidBorn } from "@/shared/validators";
+  isValidBorn,
+  isValidUsername
+} from "@/shared/validators";
 
 
 export class UserObjectValue{
@@ -23,6 +25,9 @@ export class UserObjectValue{
   }
   Born(born:string): Either<invalidParamError, string>{
      return isValidBorn(born) ? right(born) : left(new invalidParamError('born data')) 
+  }
+  UserName(username:string):Either<invalidParamError, string>{
+    return isValidUsername(username) ? right(username) : left(new invalidParamError('username'))
   }
 
 }
