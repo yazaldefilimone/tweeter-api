@@ -7,14 +7,19 @@ const makeSut = () => {
 }
 
 describe('UserObjectValue', () => {
-  it('Should return false if email invalid', async () => {
+  it('Should return invalidParamError if email invalid', async () => {
     const { sut } = makeSut();
-    const email = 'deo@gmail';
-
-    const response =  sut.Email(email);
-
-
+    const invalidEmail = 'deo@gmail';
+    const response =  sut.Email(invalidEmail);
     expect(response.isLeft()).toBe(true)
     expect(response.value).toEqual(new invalidParamError('email'))
+  })
+  
+  it('Should return email if email is valid', async () => {
+    const { sut } = makeSut();
+    const ValidEmail = 'deo@gmail.com';
+    const response =  sut.Email(ValidEmail);
+    expect(response.isRight()).toBe(true)
+    expect(response.value).toBe(ValidEmail)
   })
 })
