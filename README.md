@@ -4,56 +4,56 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
 ## To-do
 
 
-- [ ] Criação de  usuário:
-   - [ ] e-mail/cellNumber e password.
-   - [ ] Name, username e bio.
-   - [ ] gerar o token de autenticação para o usuário.
+- [x] Criação de  usuário:
+   - [x] e-mail/cellNumber e password.
+   - [x] Name, username e bio.
    - [ ] O usuário não pode criar um usuário com username que já existe na aplicação.
-   - [ ] O usuário não pode criar um usuário com o mesmo email ou cellNumber.
+   - [x] O usuário não pode criar um usuário com o mesmo email ou cellNumber.
 - [ ] Login de usuário:
-  - [ ] O usuário pode fazer login com e-mail e password.
-  - [ ] O usuário que já fez o login vai ter acesso a refresh token.
+   - [ ] O usuário pode fazer login com e-mail e password.
+   - [ ] gerar o token de autenticação para o usuário.
+   - [ ] O usuário que já fez o login vai ter acesso a refresh token.
 - [ ] Criação de porfile de usuário:
-  - [ ] O usuário pode adicionar uma foto de perfil.
-  - [ ] O usuário pode adicionar uma biografia.
-  - [ ] O usuário pode adicionar um link para acesso externo.
-  - [ ] O usuário pode adicionar amigos e aceitar pedidos.
+   - [ ] O usuário pode adicionar uma foto de perfil.
+   - [ ] O usuário pode adicionar uma biografia.
+   - [ ] O usuário pode adicionar um link para acesso externo.
+   - [ ] O usuário pode adicionar amigos e aceitar pedidos.
 - [ ] Busca de Usuário:
-  - [ ] busca de usuário pelo username.
-  - [ ] busca de usuário pelo name.
+   - [ ] busca de usuário pelo username.
+   - [ ] busca de usuário pelo name.
 - [ ] Criação de posts:
-  - [ ] Só os usuários logados podem criar posts.
-  - [ ] Listar os posts por ordem de data de criação.
-  - [ ] Fazer Cachê de posts.
-  - [ ] O usuário pode deletar seu post.
+   - [ ] Só os usuários logados podem criar posts.
+   - [ ] Listar os posts por ordem de data de criação.
+   - [ ] Fazer Cachê de posts.
+   - [ ] O usuário pode deletar seu post.
 - [ ] Feed de Posts:
-  - [ ] O post deve ter o username, name e a foto do usuário que o criou.
-  - [ ] O post deve ter a data que foi criado.
-  - [ ] A listagem de posts deve ser ordenada por ordem de data.
-  - [ ] contabilizar os likes e os dislikes do post.
-  - [ ] Fazer Cachê de feed.
+   - [ ] O post deve ter o username, name e a foto do usuário que o criou.
+   - [ ] O post deve ter a data que foi criado.
+   - [ ] A listagem de posts deve ser ordenada por ordem de data.
+   - [ ] contabilizar os likes e os dislikes do post.
+   - [ ] Fazer Cachê de feed.
 - [ ] Criação de Pages:
-  - [ ] Só os usuários logados podem criar Paginas.
-  - [ ] A Page deve ter pagename, name, biografia, categorias, foto da capa. 
-  - [ ] Listar as pages por ordem de data de criação.
-  - [ ] Contabilizar os seguidores da Page.
-  - [ ] Fazer Cachê de pages.
-  - [ ] O usuário pode deletar seu post.
+   - [ ] Só os usuários logados podem criar Paginas.
+   - [ ] A Page deve ter pagename, name, biografia, categorias, foto da capa. 
+   - [ ] Listar as pages por ordem de data de criação.
+   - [ ] Contabilizar os seguidores da Page.
+   - [ ] Fazer Cachê de pages.
+   - [ ] O usuário pode deletar seu post.
 - [ ] Busca de Pages:
-  - [ ] busca de pages pelo pagename.
-  - [ ] busca de pages pelo name.
+   - [ ] busca de pages pelo pagename.
+   - [ ] busca de pages pelo name.
 - [ ] Criação de posts de videos:
-  - [ ] Só os usuários logados podem criar videos.
-  - [ ] contabilizar os likes e os dislikes do videos.
-  - [ ] Fazer Cachê de pages.
-  - [ ] O usuário pode deletar seu videos.
-  - [ ] Listar os videos por ordem de data de criação.
-  - [ ] Fazer Cachê de pages.
-  - [ ] O usuário pode deletar seu videos.
+   - [ ] Só os usuários logados podem criar videos.
+   - [ ] contabilizar os likes e os dislikes do videos.
+   - [ ] Fazer Cachê de pages.
+   - [ ] O usuário pode deletar seu videos.
+   - [ ] Listar os videos por ordem de data de criação.
+   - [ ] Fazer Cachê de pages.
+   - [ ] O usuário pode deletar seu videos.
 - [ ] Troca de Messagens:
-  - [ ] Só os usuários logados podem trocar messagens.
-  - [ ] O usuário pode editar a sua mensagem.
-  - [ ] O usuário pode deletar a sua mensagem.
+   - [ ] Só os usuários logados podem trocar messagens.
+   - [ ] O usuário pode editar a sua mensagem.
+   - [ ] O usuário pode deletar a sua mensagem.
 
 
 
@@ -67,6 +67,7 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
 * AWS-SDK
 * Multer
 * UUID
+* Socket.io
 * Axios
 * Postgres
 * JsonWebToken
@@ -75,7 +76,6 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
 * Supertest
 * Eslint
 * Module-Alias
-* Npm Check
 * DotEnv
 * Ts-Node-Dev
 * Helmet
