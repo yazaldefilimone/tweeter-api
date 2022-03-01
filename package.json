@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "start": "node -r dotenv/config dist",
+    "typeorm":"npx ts-node-dev ./node_modules/typeorm/cli.js",
     "clean": "rm -rf dist",
     "build": "npm run clean && tsc -p tsconfig-build.json",
     "test":"npx jest --no-cache --watchAll",
