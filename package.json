@@ -26,7 +26,7 @@
     "clean": "rm -rf dist",
     "build": "npm run clean && tsc -p tsconfig-build.json",
     "test":"npx jest --no-cache --watchAll",
-    "dev": "npx ts-node-dev --respawn --transpile-only --exit-child --watch src src/main/index"
+    "dev": "npx ts-node-dev --respawn --exit-child --watch src src/main/server.ts"
   },
   "dependencies": {
     "axios": "^0.24.0",
