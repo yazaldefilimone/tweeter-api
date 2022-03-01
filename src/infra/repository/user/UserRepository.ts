@@ -1,6 +1,6 @@
 import { getRepository, Repository } from 'typeorm'
 import { IuserRepository } from '@/data/protocols/repository/user';
-import { User } from '@/infra/postgres/entities/User'
+import { User } from '@/infra/postgres/entities'
 
 
 
