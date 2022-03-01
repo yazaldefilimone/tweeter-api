@@ -126,5 +126,5 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
 
 ***NB:*** espero entregar em 1 mês e 5 dias (tendo em conta a escola e o trabalho).
 
-feito com 💙 por [Yazalde Filimone]('https://github.com/yazaldefilimonepinto')
+feito com 💙 por [Yazalde Filimone](https://github.com/yazaldefilimonepinto)
 
