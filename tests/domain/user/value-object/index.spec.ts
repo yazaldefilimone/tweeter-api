@@ -22,4 +22,12 @@ describe('UserObjectValue', () => {
     expect(response.isRight()).toBe(true)
     expect(response.value).toBe(ValidEmail)
   })
+  
+  it('Should return invalidParamError if name is invalid', async () => {
+    const { sut } = makeSut();
+    const invalidName = 'e';
+    const response =  sut.Name(invalidName);
+    expect(response.isLeft()).toBe(true)
+    expect(response.value).toEqual(new invalidParamError('name'))
+  })
 })
