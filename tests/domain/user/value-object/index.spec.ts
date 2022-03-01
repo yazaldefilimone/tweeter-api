@@ -38,4 +38,12 @@ describe('UserObjectValue', () => {
     expect(response.isRight()).toBe(true)
     expect(response.value).toBe(ValidName)
   })
+  
+  it('Should return invalidParamError if bio is invalid', async () => {
+    const { sut } = makeSut();
+    const invalidBio:any = null;
+    const response =  sut.Bio(invalidBio as string);
+    expect(response.isLeft()).toBe(true)
+    expect(response.value).toEqual(new invalidParamError('biography'))
+  })
 })
