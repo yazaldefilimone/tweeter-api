@@ -128,4 +128,14 @@ describe('PgConnection', () => {
     expect(releaseSpy).not.toHaveBeenCalled()
     await expect(promise).rejects.toThrow(new TransactionNotFoundError())
   })
+  it('should commit transaction', async () => {
+    await sut.connect()
+    await sut.openTransaction()
+    await sut.commit()
+
+    expect(commitTransactionSpy).toHaveBeenCalledWith()
+    expect(commitTransactionSpy).toHaveBeenCalledTimes(1)
+
+    await sut.disconnect()
+  })
 })
