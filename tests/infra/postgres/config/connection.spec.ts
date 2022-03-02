@@ -62,4 +62,12 @@ describe('PgConnection', () => {
 
     expect(sut).toBe(sut2)
   })
+  it('should create a new connection', async () => {
+    hasSpy.mockReturnValueOnce(false)
+
+    await sut.connect()
+
+    expect(createConnectionSpy).toHaveBeenCalledWith()
+    expect(createConnectionSpy).toHaveBeenCalledTimes(1)
+  })
 })
