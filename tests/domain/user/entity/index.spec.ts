@@ -1,5 +1,5 @@
-import { User } from '../../../../src/domain/user/entity';
-import { invalidParamError } from '../../../../src/domain/user/errors'
+import { User } from '@/domain/user/entity';
+import { invalidParamError } from '@/domain/user/errors'
 
 
 const makeSut = () => {
