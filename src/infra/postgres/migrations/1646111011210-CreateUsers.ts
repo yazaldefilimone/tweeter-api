@@ -8,14 +8,14 @@ export class CreateUsers1646111011210 implements MigrationInterface {
                 {
                     name:'id',
                     type:'uuid',
-                    isUnique:true,
                     isPrimary:true,
+                    isUnique:true,
                     isNullable:true,
                 },
                 {
                     name:'name',
                     type:'varchar',
-                    isUnique:true
+                    isUnique:false
                 },
                 {
                     name:'username',
@@ -26,7 +26,7 @@ export class CreateUsers1646111011210 implements MigrationInterface {
                 {
                     name:'bio',
                     type:'varchar',
-                    isUnique:true
+                    isUnique:false
                 },
                 {
                     name:'email',
@@ -42,11 +42,13 @@ export class CreateUsers1646111011210 implements MigrationInterface {
                 {
                     name:'born',
                     type:'varchar',
+                    isUnique:false,
                     isNullable:true
                 },
                 {
                     name:'created_at',
                     type:'varchar',
+                    isUnique:false,
                     isNullable:true
                 }
             ]
