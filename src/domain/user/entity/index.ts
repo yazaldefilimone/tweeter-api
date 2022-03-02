@@ -41,6 +41,7 @@ export class User{
 
     if(password.isLeft()) return left(password.value);
   
+    const currentdate = new Date().toISOString()
 
     return  right({
       name: name.value,
@@ -49,7 +50,7 @@ export class User{
       bio:bio.value,
       username:username.value,
       password:password.value,
-      created_at: Date.now().toString(),
+      created_at: currentdate
     })
   }
 }
