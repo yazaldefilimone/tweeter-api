@@ -1,4 +1,4 @@
-import { invalidParamError } from '../../../../src/domain/user/errors';
+import { invalidParamError } from '@/domain/user/errors';
 
 
 describe('invalidParamError', () => {
