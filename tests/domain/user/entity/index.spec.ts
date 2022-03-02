@@ -57,6 +57,14 @@ describe('User', () => {
     const response = sut.build(user);
     expect(response.isLeft()).toBe(true)
     expect(response.value).toEqual(new invalidParamError('born data'))
-  })  
+  }) 
+
+  it('should return invalidParamsError if  receive incorrect password', () => {
+    const { sut, user } = makeSut()
+    user.password = '1234';
+    const response = sut.build(user);
+    expect(response.isLeft()).toBe(true)
+    expect(response.value).toEqual(new invalidParamError('password'))
+  })
 })
 
