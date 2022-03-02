@@ -16,7 +16,7 @@ export class SigInUserController implements Icontroller{
       
       return ok(result.value);
 
-    } catch(error){
+    } catch(error:any){
       return serverError(error)
     }
   }
