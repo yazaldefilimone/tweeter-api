@@ -11,7 +11,7 @@ const makeSut = () => {
 }
 
 describe('User', () => {
-  it('should return invalidParams if not receive correct emial', async () => {
+  it('should return invalidParamsError if not receive correct emial', () => {
     const { sut } = makeSut();
     
     const user = {
@@ -23,7 +23,7 @@ describe('User', () => {
       password:"1234yaza"
     }
 
-    const response = await sut.build(user);
+    const response = sut.build(user);
 
     expect(response.isLeft()).toBe(true)
     expect(response.value).toEqual(new invalidParamError('email'))
