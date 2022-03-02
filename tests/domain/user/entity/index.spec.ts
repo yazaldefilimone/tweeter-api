@@ -43,5 +43,13 @@ describe('User', () => {
     expect(response.value).toEqual(new invalidParamError('username'))
   })
   
+  it('should return invalidParamsError if not receive correct bio', () => {
+    const { sut, user } = makeSut()
+    user.bio = '';
+    const response = sut.build(user);
+    expect(response.isLeft()).toBe(true)
+    expect(response.value).toEqual(new invalidParamError('biography'))
+  })
+  
 })
 
