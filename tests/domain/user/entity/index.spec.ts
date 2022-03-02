@@ -66,5 +66,16 @@ describe('User', () => {
     expect(response.isLeft()).toBe(true)
     expect(response.value).toEqual(new invalidParamError('password'))
   })
+  
+  it('should return User if  receive all correct params', () => {
+    const { sut, user } = makeSut()
+    const response = sut.build(user);
+    const value:any = response.value;
+    expect(response.isLeft()).toBe(false)
+    expect(response.isRight()).toBe(true)
+    expect(response.value).toHaveProperty('created_at')
+    expect(value.email).toBe(user.email)
+    expect(value.username).toBe(user.username)
+  })
 })
 
