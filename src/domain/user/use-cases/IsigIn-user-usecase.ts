@@ -1,5 +1,5 @@
 import { Either } from '@/shared/error-handler/either';
-import { UserDto, CreateUserDto } from "@/domain/user/dtos';
+import { UserDto, CreateUserDto } from "@/domain/user/dtos";
 import { alreadyExistsError } from '@/domain/user/errors'
 
 export interface IsigInUserUseCase{
