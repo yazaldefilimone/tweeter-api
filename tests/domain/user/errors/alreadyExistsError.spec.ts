@@ -1,4 +1,4 @@
-import { alreadyExistsError } from '../../../../src/domain/user/errors'
+import { alreadyExistsError } from '@/domain/user/errors'
 
 
 describe('alreadyExistsError', () => {
