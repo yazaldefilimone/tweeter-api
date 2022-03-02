@@ -122,4 +122,10 @@ describe('PgConnection', () => {
 
     await sut.disconnect()
   })
+  it('should return TransactionNotFoundError on closeTransaction if queryRunner is not found', async () => {
+    const promise = sut.closeTransaction()
+
+    expect(releaseSpy).not.toHaveBeenCalled()
+    await expect(promise).rejects.toThrow(new TransactionNotFoundError())
+  })
 })
