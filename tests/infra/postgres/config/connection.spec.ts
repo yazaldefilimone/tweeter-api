@@ -57,4 +57,9 @@ describe('PgConnection', () => {
   beforeEach(() => {
     sut = PgConnection.getInstance()
   })
+  it('should have only one instance', () => {
+    const sut2 = PgConnection.getInstance()
+
+    expect(sut).toBe(sut2)
+  })
 })
