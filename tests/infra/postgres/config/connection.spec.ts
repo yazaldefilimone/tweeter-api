@@ -70,4 +70,11 @@ describe('PgConnection', () => {
     expect(createConnectionSpy).toHaveBeenCalledWith()
     expect(createConnectionSpy).toHaveBeenCalledTimes(1)
   })
+  
+  it('should use an existing connection', async () => {
+    await sut.connect()
+
+    expect(getConnectionSpy).toHaveBeenCalledWith()
+    expect(getConnectionSpy).toHaveBeenCalledTimes(1)
+  })
 })
