@@ -25,15 +25,21 @@ const makeSut = () => {
 }
 
 describe('SigInUserUseCase', () => {
-  it('Sould bee call userRepositoryMock.findByEmail if receive all correct params', async () => {
+  it('Sould bee call userRepository.findByEmail if receive all correct params', async () => {
     const { sut, userData, userRepository } = makeSut();
     await sut.preform(userData);
-    expect(userRepository.addCallCount).toBe(1);
+    expect(userRepository.findOneByEmailCallCount).toBe(1);
   })
   
   it('Sould bee call createHashMock.create if receive all correct params', async () => {
     const { sut, userData, createHashMock } = makeSut();
     await sut.preform(userData);
     expect(createHashMock.count).toBe(1);
+  })
+  
+  it('Sould bee call userRepository.add if receive all correct params', async () => {
+    const { sut, userData, userRepository } = makeSut();
+    await sut.preform(userData);
+    expect(userRepository.addCallCount).toBe(1);
   })
 })
