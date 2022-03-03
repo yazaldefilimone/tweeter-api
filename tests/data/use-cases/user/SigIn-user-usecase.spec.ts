@@ -1,7 +1,7 @@
 
 import { SigInUserUseCase } from '@/data/use-cases/user';
 import { InMemoryUserRepository } from '@/tests/infra/repository/user';
-import { CreateHashMock } from '../../../../tests/infra/cryptography/mocks';
+import { CreateHashMock } from '@/tests/infra/cryptography/mocks';
 
 const makeSut = () => {
   const userData = {
@@ -12,22 +12,28 @@ const makeSut = () => {
       email:"email@gmail.com",
       password:"1234yaza"
     }
-  const createHashSpy:any = new CreateHashMock()
-  const userRepositorySpy: any= new InMemoryUserRepository()
-  const sut = new SigInUserUseCase(createHashSpy, userRepositorySpy)
+  const createHashMock:any = new CreateHashMock()
+  const userRepository: any= new InMemoryUserRepository()
+  const sut = new SigInUserUseCase(createHashMock, userRepository)
   
   return {
     sut,
-    userRepositorySpy,
-    createHashSpy,
+    userRepository,
+    createHashMock,
     userData
   }
 }
 
 describe('SigInUserUseCase', () => {
-  it('Sould bee call userRepositorySpy.findByEmail if receive all correct params', async () => {
-    const { sut, userData, userRepositorySpy } = makeSut();
+  it('Sould bee call userRepositoryMock.findByEmail if receive all correct params', async () => {
+    const { sut, userData, userRepository } = makeSut();
     await sut.preform(userData);
-    expect(userRepositorySpy.addCallCount).toBe(1);
+    expect(userRepository.addCallCount).toBe(1);
+  })
+  
+  it('Sould bee call createHashMock.create if receive all correct params', async () => {
+    const { sut, userData, createHashMock } = makeSut();
+    await sut.preform(userData);
+    expect(createHashMock.count).toBe(1);
   })
 })
