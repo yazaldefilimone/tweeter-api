@@ -1,4 +1,4 @@
-import { CreateHash } from '../../../src/infra/cryptography';
+import { CreateHash } from '@/infra/cryptography';
 
 const makeSut = () => {
   const sut = new CreateHash();
