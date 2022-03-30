@@ -9,8 +9,8 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
    - [x] Name, username e bio.
    - [ ] O usuário não pode criar um usuário com username que já existe na aplicação.
    - [x] O usuário não pode criar um usuário com o mesmo email ou cellNumber.
-- [ ] Login de usuário:
-   - [ ] O usuário pode fazer login com e-mail e password.
+- [x] Login de usuário:
+   - [x] O usuário pode fazer login com e-mail e password.
    - [ ] gerar o token de autenticação para o usuário.
    - [ ] O usuário que já fez o login vai ter acesso a refresh token.
 - [ ] Criação de porfile de usuário:
