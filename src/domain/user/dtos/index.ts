@@ -19,5 +19,9 @@ export type CreateUserDto = {
   born:string;
   created_at:string;
 }
-
+export type UserLogin = {
+  email:string;
+  cellphone?:string;
+  password:string;
+}
 export type ResultUserDto = Omit<UserDto, 'password'>
