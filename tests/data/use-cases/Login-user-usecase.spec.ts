@@ -1,5 +1,5 @@
 import { LoginUserUseCase, SigInUserUseCase } from "@/data/use-cases/user"
-import { alreadyExistsError, invalidParamError, notFoundError } from "@/domain/user/errors";
+import { invalidParamError, notFoundError } from "@/domain/user/errors";
 import { CompareHashMock, CreateHashMock } from "@/tests/infra/cryptography/mocks"
 import { InMemoryUserRepository } from "@/tests/infra/repository/user";
 
