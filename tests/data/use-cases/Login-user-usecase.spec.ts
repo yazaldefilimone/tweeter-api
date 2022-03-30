@@ -1,5 +1,5 @@
 import { LoginUserUseCase, SigInUserUseCase } from "@/data/use-cases/user"
-import { invalidParamError, notFoundError } from "@/domain/user/errors";
+import { alreadyExistsError, invalidParamError, notFoundError } from "@/domain/user/errors";
 import { CompareHashMock, CreateHashMock } from "@/tests/infra/cryptography/mocks"
 import { InMemoryUserRepository } from "@/tests/infra/repository/user";
 
@@ -45,6 +45,16 @@ describe('LoginUserUsecase', () => {
 
     expect(userOrError.isLeft()).toBe(true);
     expect(userOrError.value).toEqual(new invalidParamError("password"))
+  })
+
+  it('should return user if  receive correct data', async () => {
+    const { sut, fakeUser, SigInSut } = MakeSut();
+    const user = await SigInSut.preform(fakeUser);
+    const userOrError = await sut.preform(fakeUser);
+
+    expect(userOrError.isRight()).toBe(true);
+    expect(userOrError.value).toEqual(user.value);
+    // expect(userOrError.value).toHaveProperty(fakeUser.email)
   })
 
   
