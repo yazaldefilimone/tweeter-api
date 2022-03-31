@@ -1,15 +1,13 @@
-import { HttpResponse } from '../protocols'
-export interface Icontroller{
-   perform: (input:Icontroller.Input) => Promise<Icontroller.Output>;
+import { HttpResponse } from "../protocols";
+export interface Icontroller {
+  execute: (input: Icontroller.Input) => Icontroller.Output;
 }
 
+export namespace Icontroller {
+  export type Input = {
+    params: any;
+    body: any;
+  };
 
-
-export namespace Icontroller{
-   export type Input = {
-      params:any,
-      body:any
-   }
-
-   export type Output = HttpResponse;
+  export type Output = Promise<HttpResponse>;
 }
