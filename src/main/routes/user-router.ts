@@ -9,7 +9,7 @@ import { Router } from "express";
 
 const userRouter = Router();
 
-userRouter.post("/", routerAdapter(sigInUserControllerFactore()));
-userRouter.post("/", routerAdapter(loginUserControllerFactore()));
+userRouter.post("/sigin", routerAdapter(sigInUserControllerFactore()));
+userRouter.post("/login", routerAdapter(loginUserControllerFactore()));
 
 export { userRouter };
