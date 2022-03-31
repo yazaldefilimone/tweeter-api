@@ -1,10 +1,10 @@
-import { SigInUserUseCase } from "@/data/use-cases/user";
-import { CreateHash } from "@/infra/cryptography";
+import { LoginUserUseCase } from "@/data/use-cases/user";
+import { CompareHash } from "@/infra/cryptography";
 import { UserRepository } from "@/infra/repository/user";
 
 export const loginUserUseCaseFactore = () => {
-  const createHash = new CreateHash();
+  const compareHash = new CompareHash();
   const userRepository = new UserRepository();
-  const sigInUserUseCase = new SigInUserUseCase(createHash, userRepository);
-  return sigInUserUseCase;
+  const loginUserUseCase = new LoginUserUseCase(userRepository, compareHash);
+  return loginUserUseCase;
 };
