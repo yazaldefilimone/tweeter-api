@@ -10,7 +10,7 @@ export const routerAdapter: Adapter =
       params: request.params,
       body: request.body,
     };
-    const { statusCode, body } = await Controller.perform(Input);
+    const { statusCode, body } = await Controller.execute(Input);
 
     const json = [200, 204].includes(statusCode)
       ? body
