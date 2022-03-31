@@ -1,9 +1,9 @@
-import { IsigInUserUseCase } from "@/domain/user/use-cases";
+import { IloginUserUseCase } from "@/domain/user/use-cases";
 import { badRequest, ok, serverError } from "@/presentation/helpers";
 import { Icontroller } from "@/presentation/protocols";
 
 export class LoginUserController implements Icontroller {
-  constructor(private readonly loginUserUseCase: IsigInUserUseCase) {}
+  constructor(private readonly loginUserUseCase: IloginUserUseCase) {}
 
   async execute(input: Icontroller.Input): Icontroller.Output {
     try {
