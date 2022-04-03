@@ -1,7 +1,6 @@
-import { getRepository, Repository } from "typeorm";
-import { IuserRepository } from "@/data/protocols/repository/user";
-import { User } from "@/infra/postgres/entities";
-import { CreateUserDto } from "@/domain/user/dtos";
+import { getRepository, Repository } from 'typeorm';
+import { IuserRepository } from '@/data/protocols/repository/user';
+import { User } from '@/infra/postgres/entities';
 
 export class UserRepository implements IuserRepository {
   private userRepo: Repository<User>;
@@ -15,11 +14,7 @@ export class UserRepository implements IuserRepository {
     return users;
   }
 
-  async findOneById({
-    id,
-  }: {
-    id: string;
-  }): Promise<IuserRepository.Output | null> {
+  async findOneById({ id }: { id: string }): Promise<IuserRepository.Output | null> {
     const userOrNull = await this.userRepo.findOne({ id });
 
     if (!userOrNull) {
@@ -29,7 +24,7 @@ export class UserRepository implements IuserRepository {
     return userOrNull as IuserRepository.Output;
   }
 
-  async findOneByEmail({ email, }: { email: string; }): Promise<IuserRepository.Output | null> {
+  async findOneByEmail({ email }: { email: string }): Promise<IuserRepository.Output | null> {
     const userOrNull = await this.userRepo.findOne({ email });
 
     if (!userOrNull) {
@@ -56,12 +51,12 @@ export class UserRepository implements IuserRepository {
     await this.userRepo.delete({ id });
   }
 
-  async findByUserName({ username }: { username: string; }): Promise<CreateUserDto | null> {
+  async findByUserName({ username }: { username: string }): Promise<IuserRepository.Output | null> {
     const user = await this.userRepo.findOne({ username });
     if (!user) return null;
     return user;
   }
-  async findByName({ name }: { name: string; }): Promise<CreateUserDto | null> {
+  async findByName({ name }: { name: string }): Promise<IuserRepository.Output | null> {
     const user = await this.userRepo.findOne({ name });
     if (!user) return null;
 
