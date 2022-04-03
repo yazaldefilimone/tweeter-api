@@ -9,7 +9,7 @@ type CreateObject = {
 
 export class Post {
   private readonly postValueObject: PostObjectValue;
-  private constructor() {
+  constructor() {
     this.postValueObject = new PostObjectValue();
   }
 
@@ -28,9 +28,9 @@ export class Post {
 
     if (username.isLeft()) return left(username.value);
 
-    if (message.isLeft()) return left(message.value);
+    // if (message.isLeft()) return left(message.value);
 
-    if (photo.isLeft()) return left(photo.value);
+    // if (photo.isLeft()) return left(photo.value);
 
     const currentdate = new Date().toISOString();
 
@@ -38,10 +38,10 @@ export class Post {
       user: {
         name: name.value,
         username: username.value,
-        created_at: currentdate,
       },
-      message: message.value,
-      photo: photo.value,
+      message: message.value as string,
+      created_at: currentdate,
+      photo: photo.value as string,
       // ref: [
       // {
       //   username: '@joeDio',
