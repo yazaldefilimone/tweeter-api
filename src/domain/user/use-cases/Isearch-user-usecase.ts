@@ -1,6 +1,6 @@
-import { Either } from "@/shared/error-handler/either";
-import { CreateUserDto } from "@/domain/user/dtos";
-import { notFoundError, invalidParamError } from "@/domain/user/errors";
+import { Either } from '@/shared/error-handler/either';
+import { UserDto } from '@/domain/user/dtos';
+import { notFoundError, invalidParamError } from '@/domain/user/errors';
 
 export interface IsearchUserUseCase {
   preform: (data: IsearchUserUseCase.Input) => IsearchUserUseCase.Output;
@@ -11,7 +11,5 @@ export namespace IsearchUserUseCase {
     username: string;
     name: string;
   };
-  export type Output = Promise<
-    Either<notFoundError | invalidParamError, CreateUserDto>
-  >;
+  export type Output = Promise<Either<notFoundError | invalidParamError, UserDto>>;
 }
