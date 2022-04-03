@@ -15,7 +15,7 @@ export type PostDTO = {
   // ref: Ref[];
 };
 export type CreatePostDTO = {
-  id: string;
+  id?: string;
   user: User;
   message?: string;
   photo?: string;
