@@ -1,10 +1,9 @@
-import { invalidParamError } from '@/domain/user/errors';
-
+import { invalidParamError } from '@/domain/errors';
 
 describe('invalidParamError', () => {
   it('Should return message of error', () => {
     const sut = new invalidParamError('error');
-    expect(sut.message).toEqual('invalid param: [error].')
-    expect(sut.name).toEqual('invalidParamError')
-  })
-})
+    expect(sut.message).toEqual('invalid param: [error].');
+    expect(sut.name).toEqual('invalidParamError');
+  });
+});

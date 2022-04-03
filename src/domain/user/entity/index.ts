@@ -27,13 +27,13 @@ export class User {
 
     if (name.isLeft()) return left(name.value);
 
+    if (username.isLeft()) return left(username.value);
+
     if (email.isLeft()) return left(email.value);
 
     if (bio.isLeft()) return left(bio.value);
 
     if (born.isLeft()) return left(born.value);
-
-    if (username.isLeft()) return left(username.value);
 
     if (password.isLeft()) return left(password.value);
 

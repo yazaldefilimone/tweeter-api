@@ -1,7 +1,7 @@
 import { IloginUserUseCase } from '@/domain/user/use-cases/Ilogin-user-usecase';
 import { IuserRepository } from '@/data/protocols/repository/user';
 import { IcompareHash } from '@/data/protocols/cryptography';
-import { invalidParamError, notFoundError } from '@/domain/user/errors';
+import { invalidParamError, notFoundError } from '@/domain/errors';
 
 import { right, left } from '@/shared/error-handler/either';
 import { createJWT } from '@/shared/webtoken';

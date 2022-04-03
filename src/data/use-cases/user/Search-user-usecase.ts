@@ -1,5 +1,5 @@
 import { IuserRepository } from '@/data/protocols/repository/user';
-import { invalidParamError, notFoundError } from '@/domain/user/errors';
+import { invalidParamError, notFoundError } from '@/domain/errors';
 import { IsearchUserUseCase } from '@/domain/user/use-cases';
 import { left, right } from '@/shared/error-handler/either';
 

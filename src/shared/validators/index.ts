@@ -33,7 +33,7 @@ const bornSchema = Joi.object({
   born: Joi.string().required().min(6).max(10),
 });
 const postContentSchema = Joi.object({
-  content: Joi.string().required().min(1).max(500),
+  content: Joi.string().required().min(1).max(800),
 });
 
 export function isValidEmail(email: string): boolean {

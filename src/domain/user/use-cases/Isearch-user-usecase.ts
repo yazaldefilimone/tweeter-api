@@ -1,6 +1,6 @@
 import { Either } from '@/shared/error-handler/either';
 import { UserDto } from '@/domain/user/dtos';
-import { notFoundError, invalidParamError } from '@/domain/user/errors';
+import { notFoundError, invalidParamError } from '@/domain/errors';
 
 export interface IsearchUserUseCase {
   preform: (data: IsearchUserUseCase.Input) => IsearchUserUseCase.Output;

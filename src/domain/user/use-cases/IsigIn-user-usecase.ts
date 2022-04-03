@@ -1,6 +1,6 @@
 import { Either } from '@/shared/error-handler/either';
 import { UserDto } from '@/domain/user/dtos';
-import { alreadyExistsError } from '@/domain/user/errors';
+import { alreadyExistsError } from '@/domain/errors';
 
 export interface IsigInUserUseCase {
   preform: (Data: IsigInUserUseCase.Input) => Promise<IsigInUserUseCase.Output>;
