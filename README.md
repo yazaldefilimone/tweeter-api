@@ -18,9 +18,9 @@ Desenvolvimento de um clone da API da grande rede social que e o Facebook.
   - [x] O usuário pode adicionar uma biografia.
   - [ ] O usuário pode adicionar um link para acesso externo.
   - [ ] O usuário pode adicionar amigos e aceitar pedidos.
-- [ ] Busca de Usuário:
-  - [ ] busca de usuário pelo username.
-  - [ ] busca de usuário pelo name.
+- [x] Busca de Usuário:
+  - [x] busca de usuário pelo username.
+  - [x] busca de usuário pelo name.
 - [ ] Criação de posts:
   - [ ] Só os usuários logados podem criar posts.
   - [ ] Listar os posts por ordem de data de criação.
