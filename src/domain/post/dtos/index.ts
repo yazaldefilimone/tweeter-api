@@ -12,13 +12,13 @@ export type PostDTO = {
   user: User;
   message?: string;
   photo?: string;
-  ref: Ref[];
+  // ref: Ref[];
 };
 export type CreatePostDTO = {
   id: string;
   user: User;
   message?: string;
   photo?: string;
-  ref: Ref[];
+  // ref: Ref[];
   created_at: string;
 };
