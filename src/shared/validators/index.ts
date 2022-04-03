@@ -36,6 +36,16 @@ const postContentSchema = Joi.object({
   content: Joi.string().required().min(1).max(800),
 });
 
+const photoSchema = Joi.object({
+  photo: Joi.string().min(5),
+});
+
+export function isValidPhoto(photo?: string): boolean {
+  if (!photo) return false;
+  const result = photoSchema.validate({ photo });
+  return result.error ? false : true;
+}
+
 export function isValidEmail(email: string): boolean {
   if (!email) return false;
   const result = emailSchema.validate({ email });
@@ -70,7 +80,7 @@ export function isValidBio(bio: string): boolean {
   return result.error ? false : true;
 }
 
-export function isValidPostContent(content: string): boolean {
+export function isValidPostContent(content?: string): boolean {
   if (!content) return false;
   const result = postContentSchema.validate({
     content,
