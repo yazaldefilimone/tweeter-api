@@ -20,4 +20,5 @@ export type CreatePostDTO = {
   message?: string;
   photo?: string;
   ref: Ref[];
+  created_at: string;
 };
