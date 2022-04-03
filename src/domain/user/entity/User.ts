@@ -9,7 +9,7 @@ type CreateObject = {
 
 export class User {
   private userValueObject: UserObjectValue;
-  constructor() {
+  private constructor() {
     this.userValueObject = new UserObjectValue();
   }
 
