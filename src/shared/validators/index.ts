@@ -50,13 +50,17 @@ export function isValidName(name: string): boolean {
 
 export function isValidUsername(username: string): boolean {
   if (!username) return false;
-  const result = usernameSchema.validate({ username });
+  const result = usernameSchema.validate({
+    username,
+  });
   return result.error ? false : true;
 }
 
 export function isValidPassword(password: string): boolean {
   if (!password) return false;
-  const result = passwordSchema.validate({ password });
+  const result = passwordSchema.validate({
+    password,
+  });
   return result.error ? false : true;
 }
 
@@ -68,7 +72,9 @@ export function isValidBio(bio: string): boolean {
 
 export function isValidPostContent(content: string): boolean {
   if (!content) return false;
-  const result = postContentSchema.validate({ content });
+  const result = postContentSchema.validate({
+    content,
+  });
   return result.error ? false : true;
 }
 
