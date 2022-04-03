@@ -8,6 +8,7 @@ export interface IcreatePostUseCase {
 
 export namespace IcreatePostUseCase {
   export type Input = {
+    id: string;
     photo?: string;
     content?: string;
   };
