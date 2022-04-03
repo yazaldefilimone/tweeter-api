@@ -1,7 +1,7 @@
-import { CreateUserDto } from "@/domain/user/dtos";
+import { UserDto } from '@/domain/user/dtos';
 
 export interface IuserRepository {
-  findOneByEmail: ({ email, }: { email: string }) => Promise<IuserRepository.Output | null>;
+  findOneByEmail: ({ email }: { email: string }) => Promise<IuserRepository.Output | null>;
   delete: ({ id }: { id: string }) => Promise<void>;
   findAll: () => Promise<IuserRepository.Output[]>;
   add: (data: IuserRepository.Output) => Promise<IuserRepository.Output>;
@@ -12,5 +12,5 @@ export interface IuserRepository {
 }
 
 export namespace IuserRepository {
-  export type Output = CreateUserDto;
+  export type Output = UserDto;
 }
