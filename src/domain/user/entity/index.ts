@@ -13,7 +13,7 @@ export class User {
     this.userValueObject = new UserObjectValue();
   }
 
-  public build(user: UserDto): CreateEntityUserReponse {
+  public build(user: Omit<UserDto, 'created_at'>): CreateEntityUserReponse {
     const ValueUserOrError: CreateObject = {
       name: this.userValueObject.Name(user.name),
       email: this.userValueObject.Email(user.email),
