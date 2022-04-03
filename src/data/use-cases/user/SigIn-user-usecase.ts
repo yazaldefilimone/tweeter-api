@@ -6,23 +6,22 @@ import { IuserRepository } from '@/data/protocols/repository/user';
 import { User } from '@/domain/user/entity';
 
 
-export class SigInUserUseCase implements IsigInUserUseCase{
-  constructor(private readonly createHash:IcreateHash, private readonly userRepository:IuserRepository){}
+export class SigInUserUseCase implements IsigInUserUseCase {
+  constructor(private readonly createHash: IcreateHash, private readonly userRepository: IuserRepository) { }
 
-  async preform(user: IsigInUserUseCase.Input): Promise<IsigInUserUseCase.Output>{
+  async preform(user: IsigInUserUseCase.Input): Promise<IsigInUserUseCase.Output> {
     const buildUser = new User().build(user);
-    
-    if(buildUser.isLeft()){
+    if (buildUser.isLeft()) {
       return left(buildUser.value)
     }
 
-    const exists =  await this.userRepository.findOneByEmail({ email: buildUser.value.email })
+    const exists = await this.userRepository.findOneByEmail({ email: buildUser.value.email })
 
-    if(exists){
+    if (exists) {
       return left(new alreadyExistsError());
     }
 
-    const passwordhash = await this.createHash.create({ password:buildUser.value.password })
+    const passwordhash = await this.createHash.create({ password: buildUser.value.password })
 
     const isUser = {
       ...buildUser.value,
@@ -32,6 +31,6 @@ export class SigInUserUseCase implements IsigInUserUseCase{
     const UserResponse = await this.userRepository.add(isUser);
 
 
-    return right(UserResponse) 
+    return right(UserResponse)
   }
 }
