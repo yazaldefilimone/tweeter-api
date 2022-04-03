@@ -1,8 +1,8 @@
 import { SearchUserUseCase } from '@/data/use-cases/user';
 import { UserRepository } from '@/infra/repository/user';
 
-export const SearchUseCaseFactore = () => {
+export const searchUseCaseFactore = () => {
   const userRepository = new UserRepository();
-  const SearchUseCase = new SearchUserUseCase(userRepository);
-  return SearchUseCase;
+  const searchUseCase = new SearchUserUseCase(userRepository);
+  return searchUseCase;
 };
