@@ -1,6 +1,6 @@
-# Clone Facebook Api
+# Clone tweeter Api
 
-Desenvolvimento de um clone da API da grande rede social que e o Facebook.
+Desenvolvimento de um clone da API da grande rede social que e o tweeter.
 
 ## To-do
 
