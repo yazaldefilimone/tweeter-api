@@ -1,6 +1,6 @@
-# Clone tweeter Api
+# Tweeter Api
 
-Desenvolvimento de um clone da API da grande rede social que e o tweeter.
+Desenvolvimento de uma  API de rede social que tera o nome **tweeter**.
 
 ## To-do
 
