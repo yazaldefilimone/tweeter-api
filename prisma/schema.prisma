@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  bio        String
+  avatar     String
+  baner      String
+  created_at DateTime @default(now())
+
+
+  Post         Post[]
+  Comment      PostComment[]
+  followers    Relationship[] @relation("followers")
+  following    Relationship[] @relation("following")
+  PostLikes    PostLikes[]
+  PostDisLikes PostDisLikes[]
+  @@map("users")
+}
+
+model Post {
+  id           String         @id @default(uuid())
+  content      String?
+  baner        String?
+  author       User           @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  author_id    String
+  created_at   DateTime       @default(now())
+  comments     PostComment[]
+  tags         Tag[]
+  PostLikes    PostLikes[]
+  PostDisLikes PostDisLikes[]
+
+  @@map("posts")
+}
+
+model PostComment {
+  id         String   @id @default(uuid())
+  author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  author_id  String
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  postId     String
+  created_at DateTime @default(now())
+
+  @@map("post_comments")
+}
+
+model PostLikes {
+  id         String   @id @default(uuid())
+  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  post_id    String
+  author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  author_id  String
+  created_at DateTime @default(now())
+
+  @@map("posts_likes")
+}
+
+model PostDisLikes {
+  id         String   @id @default(uuid())
+  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  post_id    String
+  author     User     @relation(fields: [author_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  author_id  String
+  created_at DateTime @default(now())
+
+  @@map("posts_dislikes")
+}
+
+model Tag {
+  id         String   @id @default(uuid())
+  name       String   @unique
+  post       Post     @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  post_id    String
+  created_at DateTime @default(now())
+
+  @@map("tags")
+}
+
+model Relationship {
+  id String @id @default(uuid())
+
+  follower    User   @relation("followers", fields: [follower_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  followed    User   @relation("following", fields: [followed_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  follower_id String
+  followed_id String
+
+  created_at DateTime @default(now())
+  @@map("followers")
+}
