@@ -31,3 +31,15 @@ export type userParam = {
   email: string;
   password: string;
 };
+export type userToken = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    bio: string;
+    banner_url: string;
+    avatar_url: string;
+    created_at: Date;
+  };
+  token: string;
+};
