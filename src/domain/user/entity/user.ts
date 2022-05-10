@@ -2,7 +2,7 @@ import { Either, right, left } from '@/shared/error-handler/either';
 import { isValidEmail, isValidName, isValidPassword, isValidBio } from '@/shared/validators';
 import { user } from '@/domain/user/dtos';
 import { buildUserContracts } from './contracts';
-import { InvalidBioError, InvalidEmailError, InvalidNameError, InvalidPasswordError } from './errors';
+import { InvalidBioError, InvalidEmailError, InvalidNameError, InvalidPasswordError } from '../errors';
 
 import { randomUUID } from 'crypto';
 
