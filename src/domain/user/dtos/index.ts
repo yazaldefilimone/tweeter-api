@@ -1,12 +1,10 @@
 export type user = {
-  id: string;
   name: string;
   email: string;
   password: string;
   bio: string;
-  bannerUrl: string;
-  avatarUrl: string;
-  createdAt: Date;
+  banner_url: string;
+  avatar_url: string;
 };
 
 export type userStoreDTO = {
