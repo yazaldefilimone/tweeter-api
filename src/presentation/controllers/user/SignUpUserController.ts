@@ -9,13 +9,13 @@ export class SignUpUserController {
 
   async execute(request: Request, response: Response): Promise<Response> {
     if (!request.body) {
-      return response.status(404).json({ mensagem: 'body is required' });
+      return response.status(204).json({ message: 'body is required' });
     }
     const data = request.body;
     const userOrError = await this.userUseCase.signup(data);
 
     if (userOrError.isLeft()) {
-      return response.status(401).json({ mensagem: userOrError.value });
+      return response.status(400).json({ message: userOrError.value.message });
     }
 
     return response.status(201).json({
