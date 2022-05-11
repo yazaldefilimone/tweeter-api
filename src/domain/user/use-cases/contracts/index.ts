@@ -10,8 +10,11 @@ export type felidSignUserContracts =
   | InvalidPasswordError
   | AlreadyExistsError;
 
+export type felidFindUserContracts = InvalidEmailError | InvalidNameError | NotFoundError;
 export type felidLoginUserContracts = InvalidEmailError | InvalidPasswordError | NotFoundError;
 
 export type signUserContracts = Either<felidSignUserContracts, userResponse>;
 
 export type loginUserContracts = Either<felidLoginUserContracts, userToken>;
+
+export type findUserContracts<T> = Either<felidFindUserContracts, T>;
