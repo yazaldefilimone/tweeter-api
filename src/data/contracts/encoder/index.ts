@@ -1,4 +1,4 @@
 export interface IEncoder {
-  encode: (value: string, salt?: string) => Promise<string>;
+  encode: (value: string, salt?: number) => Promise<string>;
   decode: (value: string, valueHash: string) => Promise<boolean>;
 }
