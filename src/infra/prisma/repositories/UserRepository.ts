@@ -1,18 +1,17 @@
 import { IUserRepository } from '@/data/repositories/user';
-import { user, userResponse } from '@/domain/user/dtos';
+import { user, userResponse, userStoreDTO } from '@/domain/user/dtos';
 import { prismaClient } from '@/infra/prisma/settings';
+import { PrismaClient } from '@prisma/client';
 
 export class UserRepository implements IUserRepository {
-  private prismaClient: any;
+  private prismaClient: PrismaClient;
   constructor() {
     this.prismaClient = prismaClient;
   }
 
   async findById({ id }: { id: string }): IUserRepository.findOutput<userResponse> {
-    const user = await prismaClient.user.findUnique({
-      where: {
-        id,
-      },
+    const user = await this.prismaClient.user.findUnique({
+      where: { id },
       select: {
         id: true,
         name: true,
@@ -27,18 +26,48 @@ export class UserRepository implements IUserRepository {
   }
 
   async add(data: user): IUserRepository.addOutput {
-    const user = await prismaClient.user.create({
+    const user = await this.prismaClient.user.create({ data });
+    return user;
+  }
+
+  async update(data: IUserRepository.updateInput): IUserRepository.addOutput {
+    const user = await this.prismaClient.user.update({
+      where: { id: data.id },
       data,
     });
     return user;
   }
 
-  async update(data: IUserRepository.updateInput): IUserRepository.addOutput {
-    const user = await prismaClient.user.update({
-      where: {
-        id: data.id,
+  async findByEmail({ email }: { email: string }): IUserRepository.findOutput<userStoreDTO> {
+    const user = await this.prismaClient.user.findUnique({
+      where: { email },
+    });
+    return user;
+  }
+
+  async findByName({ name }: { name: string }): IUserRepository.findOutput<userResponse[]> {
+    const user = await this.prismaClient.user.findMany({
+      where: { name },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        bio: true,
+        banner_url: true,
+        avatar_url: true,
+        created_at: true,
       },
-      data,
+    });
+
+    return user;
+  }
+
+  async delete({ id }: { id: string }): Promise<{ id: string }> {
+    const user = await this.prismaClient.user.delete({
+      where: { id },
+      select: {
+        id: true,
+      },
     });
     return user;
   }
