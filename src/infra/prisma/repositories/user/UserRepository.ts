@@ -26,7 +26,19 @@ export class UserRepository implements IUserRepository {
   }
 
   async add(data: user): IUserRepository.addOutput {
-    const user = await this.prismaClient.user.create({ data });
+    const user = await this.prismaClient.user.create({
+      data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        bio: true,
+        password: false,
+        banner_url: true,
+        avatar_url: true,
+        created_at: true,
+      },
+    });
     return user;
   }
 
