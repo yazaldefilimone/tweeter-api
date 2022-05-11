@@ -5,6 +5,38 @@ tweeter and a mini social network inspired by twitter.
 
 ## To-do
 
+- [x] Email, Name, Username, Bio, Password
+- [ ] Pegar dados do github do usuário e salvar
+- [x] Gerar token de autenticação
+- [x] O usuário não pode criar outro usuário com o mesmo email
+
+- [x] Login de usuário usando o email e senha
+- [x] Criação de profile do usuário
+
+  - [ ] O usuário pode usar o avatar
+  - [ ] O usuário pode escolher um banner para o profile
+  - [ ] O usuário pode definir sua localização
+  - [ ] O usuário pode definir sua data de nascimento
+  - [ ] O usuário pode definir um link para o seu website
+
+- [ ] Busca de usuários
+  - [ ] Buscar por nome
+- [ ] Criação de posts
+  - [ ] Apenas usuários autenticados podem criar posts
+  - [ ] Lista de posts deve ser ordenada por data de criação
+  - [ ] Fazer cache dos posts
+  - [ ] O usuário pode deletar seu post
+- [ ] Feed de posts
+  - [ ] O post deve ter o nome, avatar do usuário que criou o post
+  - [ ] O post deve ter a quanto tempo foi criado
+  - [ ] Lista de posts deve ser ordenada por data de criação
+  - [ ] Fazer cache dos posts
+- [ ] Conexão com Github
+  - [ ] O usuário não pode criar outro usuário com o mesmo github_id
+  - [ ] Criação de usuário usando o código de autenticação do github e dados extras
+  - [ ] Login de usuário usando o github_id e senha
+  - [ ] O usuário pode usar o mesmo avatar que está no github
+
 ## Bibliotecas e Frameworks:
 
 - Yarn
