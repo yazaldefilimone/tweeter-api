@@ -62,7 +62,15 @@ export class UserUseCase implements IUserUseCase {
 
     return right({
       token,
-      user: isUser,
+      user: {
+        id: isUser.id,
+        name: isUser.name,
+        email: isUser.email,
+        bio: isUser.bio,
+        avatar_url: isUser.avatar_url,
+        banner_url: isUser.banner_url,
+        created_at: isUser.created_at,
+      },
     });
   }
 }
