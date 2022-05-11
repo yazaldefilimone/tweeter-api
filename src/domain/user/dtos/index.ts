@@ -3,8 +3,8 @@ export type user = {
   email: string;
   password: string;
   bio: string;
-  banner_url: string;
-  avatar_url: string;
+  banner_url: string | null;
+  avatar_url: string | null;
 };
 
 export type userStoreDTO = {
@@ -13,8 +13,8 @@ export type userStoreDTO = {
   email: string;
   password: string;
   bio: string;
-  banner_url: string;
-  avatar_url: string;
+  banner_url: string | null;
+  avatar_url: string | null;
   created_at: Date;
 };
 export type userResponse = {
@@ -22,8 +22,8 @@ export type userResponse = {
   name: string;
   email: string;
   bio: string;
-  banner_url: string;
-  avatar_url: string;
+  banner_url: string | null;
+  avatar_url: string | null;
   created_at: Date;
 };
 
@@ -37,8 +37,8 @@ export type userToken = {
     name: string;
     email: string;
     bio: string;
-    banner_url: string;
-    avatar_url: string;
+    banner_url: string | null;
+    avatar_url: string | null;
     created_at: Date;
   };
   token: string;
