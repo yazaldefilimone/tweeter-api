@@ -1,10 +1,10 @@
 import { User } from '@/domain/user/entity/user';
 import { IUserUseCase } from '@/domain/user/use-cases';
-import { IUserRepository } from '../repositories/user';
+import { IUserRepository } from '@/data/repositories/user';
 
 import { left, right } from '@/shared/error-handler/either';
 import { AlreadyExistsError, NotFoundError } from '@/domain/errors';
-import { IEncoder } from '../contracts/encoder';
+import { IEncoder } from '@/data/contracts/encoder';
 import { InvalidPasswordError } from '@/domain/user/errors';
 import { createJWT } from '@/shared/security';
 export class UserUseCase implements IUserUseCase {
