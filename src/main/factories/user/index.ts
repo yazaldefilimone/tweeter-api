@@ -8,7 +8,7 @@ const userRepository = new UserRepository();
 const encoder = new Encoder();
 const userUseCase = new UserUseCase(userRepository, encoder);
 
-export const makeSignUpController = async function (request: Request, response: Response) {
+export const makeSignUpFacture = async function (request: Request, response: Response) {
   const signUpUserController = new SignUpUserController(userUseCase);
   const controller = await signUpUserController.execute(request, response);
   return controller;
