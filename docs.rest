@@ -5,10 +5,13 @@ content-type: application/json
 
 {
     "name": "john doe",
-    "email": "johndoe@gmail.com",
+    "email": "jodoe@gmail.com",
     "password": "12345678",
     "bio": "I Am dev FullSctak",
     "banner_url": "",
+    " website_url ": "",
+    "localization": "",
+    "birth_date" :  "2022-05-12T10:43:09.555Z",
     "avatar_url": ""
 }
 ### Login
