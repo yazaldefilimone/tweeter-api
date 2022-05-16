@@ -59,8 +59,6 @@ export class User {
       email: Objects.email.value,
       password: Objects.password.value,
       bio: Objects.bio.value,
-      avatar_url: data.avatar_url,
-      banner_url: data.banner_url,
       website_url: data.website_url,
       localization: data.localization,
       birth_date: data.birth_date,

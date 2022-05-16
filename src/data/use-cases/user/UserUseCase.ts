@@ -8,7 +8,7 @@ import { IEncoder } from '@/data/contracts/encoder';
 import { InvalidPasswordError } from '@/domain/user/errors';
 import { createJWT } from '@/shared/security';
 import { ICacheServices } from '@/data/services/cache/ICacheServices';
-import { userResponse, userStoreDTO } from '@/domain/user/dtos';
+import { buildType, userResponse, userStoreDTO } from '@/domain/user/dtos';
 export class UserUseCase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
   private readonly encoder: IEncoder;
@@ -83,7 +83,7 @@ export class UserUseCase implements IUserUseCase {
     });
   }
 
-  async update({ id, data }: IUserUseCase.updateInput): IUserUseCase.signOutput {
+  async updateProfile({ id, data }: IUserUseCase.updateInput): IUserUseCase.signOutput {
     const build = new User().build(data);
     if (build.isLeft()) {
       return left(build.value);
@@ -101,17 +101,14 @@ export class UserUseCase implements IUserUseCase {
       email: build.value.email,
       bio: build.value.bio,
       password: passwordHash,
-      avatar_url: build.value.avatar_url,
-      banner_url: build.value.banner_url,
-      created_at: build.value.created_at,
       website_url: isUser.website_url,
       localization: isUser.localization,
       birth_date: isUser.birth_date,
     };
 
-    const user = await this.userRepository.update({ id, user: createUser });
+    const user = await this.userRepository.update({ id, data: createUser });
     await this.cacheServices.removeCache(`user-${id}`);
-    await this.cacheServices.setCache<userResponse>({ key: `user-${id}`, data: { id, ...createUser } });
+    await this.cacheServices.setCache<buildType>({ key: `user-${id}`, data: { id, ...createUser } });
 
     return right(user);
   }

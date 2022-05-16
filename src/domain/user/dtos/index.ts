@@ -3,8 +3,6 @@ export type user = {
   email: string;
   password: string;
   bio: string;
-  banner_url: string | null;
-  avatar_url: string | null;
   website_url: string | null;
   localization: string | null;
   birth_date: Date | null;
@@ -58,16 +56,15 @@ export type userToken = {
 
 export type userUpdateDTO = {
   id: string;
-  user: {
+  data: {
     name: string;
     email: string;
     password: string;
     bio: string;
-    banner_url: string | null;
-    avatar_url: string | null;
     website_url: string | null;
     localization: string | null;
     birth_date: Date | null;
-    created_at: Date;
   };
 };
+
+export type buildType = Omit<Omit<Omit<userStoreDTO, 'avatar_url'>, 'banner_url'>, 'created_at'>;
