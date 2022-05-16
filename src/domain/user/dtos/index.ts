@@ -5,6 +5,9 @@ export type user = {
   bio: string;
   banner_url: string | null;
   avatar_url: string | null;
+  website_url: string | null;
+  localization: string | null;
+  birth_date: Date | null;
 };
 
 export type userStoreDTO = {
@@ -15,6 +18,9 @@ export type userStoreDTO = {
   bio: string;
   banner_url: string | null;
   avatar_url: string | null;
+  website_url: string | null;
+  localization: string | null;
+  birth_date: Date | null;
   created_at: Date;
 };
 export type userResponse = {
@@ -24,6 +30,9 @@ export type userResponse = {
   bio: string;
   banner_url: string | null;
   avatar_url: string | null;
+  website_url: string | null;
+  localization: string | null;
+  birth_date: Date | null;
   created_at: Date;
 };
 
@@ -39,6 +48,9 @@ export type userToken = {
     bio: string;
     banner_url: string | null;
     avatar_url: string | null;
+    website_url: string | null;
+    localization: string | null;
+    birth_date: Date | null;
     created_at: Date;
   };
   token: string;
@@ -53,6 +65,9 @@ export type userUpdateDTO = {
     bio: string;
     banner_url: string | null;
     avatar_url: string | null;
+    website_url: string | null;
+    localization: string | null;
+    birth_date: Date | null;
     created_at: Date;
   };
 };

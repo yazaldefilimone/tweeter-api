@@ -19,13 +19,16 @@ export class UserRepository implements IUserRepository {
         bio: true,
         banner_url: true,
         avatar_url: true,
+        website_url: true,
+        localization: true,
+        birth_date: true,
         created_at: true,
       },
     });
     return user;
   }
 
-  async add(data: user): IUserRepository.addOutput {
+  async add(data: IUserRepository.addInput): IUserRepository.addOutput {
     const user = await this.prismaClient.user.create({
       data,
       select: {
@@ -36,6 +39,9 @@ export class UserRepository implements IUserRepository {
         password: false,
         banner_url: true,
         avatar_url: true,
+        website_url: true,
+        localization: true,
+        birth_date: true,
         created_at: true,
       },
     });
@@ -67,6 +73,9 @@ export class UserRepository implements IUserRepository {
         bio: true,
         banner_url: true,
         avatar_url: true,
+        website_url: true,
+        localization: true,
+        birth_date: true,
         created_at: true,
       },
     });
