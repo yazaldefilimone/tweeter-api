@@ -11,6 +11,7 @@ tweeter and a mini social network inspired by twitter.
 - [x] O usuário não pode criar outro usuário com o mesmo email
 
 - [x] Login de usuário usando o email e senha
+- [x] fazer cache de usuário.
 - [x] Criação de profile do usuário
 
   - [ ] O usuário pode usar o avatar
