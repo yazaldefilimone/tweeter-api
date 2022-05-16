@@ -10,7 +10,7 @@ export interface IUserRepository {
 }
 
 export namespace IUserRepository {
-  export type addInput = user;
+  export type addInput = userStoreDTO;
   export type updateInput = userUpdateDTO;
   export type addOutput = Promise<userResponse>;
   export type findOutput<T> = Promise<T | null>;
