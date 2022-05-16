@@ -1,4 +1,4 @@
-import { user, userParam, userResponse, userStoreDTO } from '@/domain/user/dtos';
+import { user, userParam, userResponse, userStoreDTO, userUpdateDTO } from '@/domain/user/dtos';
 
 export interface IUserRepository {
   add: (data: IUserRepository.addInput) => IUserRepository.addOutput;
@@ -11,7 +11,7 @@ export interface IUserRepository {
 
 export namespace IUserRepository {
   export type addInput = user;
-  export type updateInput = userStoreDTO;
+  export type updateInput = userUpdateDTO;
   export type addOutput = Promise<userResponse>;
   export type findOutput<T> = Promise<T | null>;
 }
