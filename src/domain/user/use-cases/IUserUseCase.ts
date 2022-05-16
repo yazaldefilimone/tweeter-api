@@ -4,10 +4,14 @@ import { findUserContracts, loginUserContracts, signUserContracts } from './cont
 export interface IUserUseCase {
   signup: (data: IUserUseCase.signInput) => IUserUseCase.signOutput;
   login: (data: IUserUseCase.loginInput) => IUserUseCase.loginOutput;
-  update: (data: IUserUseCase.signInput) => IUserUseCase.loginOutput;
+  update: (data: IUserUseCase.updateInput) => IUserUseCase.loginOutput;
 }
 export namespace IUserUseCase {
   export type signInput = user;
+  export type updateInput = {
+    id: string;
+    user: user;
+  };
   export type signOutput = Promise<signUserContracts>;
   export type loginInput = userParam;
   export type loginOutput = Promise<loginUserContracts>;
