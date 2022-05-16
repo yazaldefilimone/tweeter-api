@@ -75,6 +75,9 @@ export class UserUseCase implements IUserUseCase {
         bio: isUser.bio,
         avatar_url: isUser.avatar_url,
         banner_url: isUser.banner_url,
+        website_url: isUser.website_url,
+        localization: isUser.localization,
+        birth_date: isUser.birth_date,
         created_at: isUser.created_at,
       },
     });
@@ -101,6 +104,9 @@ export class UserUseCase implements IUserUseCase {
       avatar_url: build.value.avatar_url,
       banner_url: build.value.banner_url,
       created_at: build.value.created_at,
+      website_url: isUser.website_url,
+      localization: isUser.localization,
+      birth_date: isUser.birth_date,
     };
 
     const user = await this.userRepository.update({ id, user: createUser });
