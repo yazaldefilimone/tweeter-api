@@ -1,12 +1,14 @@
 import { UserUseCase } from '@/data/use-cases/user';
 import { Encoder } from '@/infra/encoder';
 import { UserRepository } from '@/infra/prisma/repositories/user';
+import { CacheServices } from '@/infra/services/cache';
 import { SignUpUserController, LoginUserController } from '@/presentation/controllers/user';
 import { Request, Response } from 'express';
 
 const userRepository = new UserRepository();
 const encoder = new Encoder();
-const userUseCase = new UserUseCase(userRepository, encoder);
+const cacheServices = new CacheServices();
+const userUseCase = new UserUseCase(userRepository, cacheServices, encoder);
 
 export const makeSignUpFacture = async function (request: Request, response: Response) {
   const signUpUserController = new SignUpUserController(userUseCase);
