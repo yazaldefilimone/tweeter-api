@@ -8,4 +8,7 @@ export const env = {
     username: process.env.REDIS_USERNAME,
     password: process.env.REDIS_PASSWORD,
   },
+  uploads: {
+    path: process.env.UPLOAD_PATH,
+  },
 };
