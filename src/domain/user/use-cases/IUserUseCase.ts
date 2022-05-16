@@ -10,7 +10,7 @@ export namespace IUserUseCase {
   export type signInput = user;
   export type updateInput = {
     id: string;
-    user: user;
+    data: user;
   };
   export type signOutput = Promise<signUserContracts>;
   export type loginInput = userParam;
