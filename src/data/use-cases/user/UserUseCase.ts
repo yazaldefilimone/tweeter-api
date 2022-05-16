@@ -8,12 +8,14 @@ import { IEncoder } from '@/data/contracts/encoder';
 import { InvalidPasswordError } from '@/domain/user/errors';
 import { createJWT } from '@/shared/security';
 import { ICacheServices } from '@/data/services/cache/ICacheServices';
+import { userResponse, userStoreDTO } from '@/domain/user/dtos';
 export class UserUseCase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
   private readonly encoder: IEncoder;
   private readonly cacheServices: ICacheServices;
-  constructor(userRepository: IUserRepository, encoder: IEncoder) {
+  constructor(userRepository: IUserRepository, cacheServices: ICacheServices, encoder: IEncoder) {
     this.userRepository = userRepository;
+    this.cacheServices = cacheServices;
     this.encoder = encoder;
   }
 
@@ -62,7 +64,7 @@ export class UserUseCase implements IUserUseCase {
     }
     const token = createJWT({ email: isUser.email, id: isUser.id });
 
-    await this.cacheServices.set({ key: `user-${isUser.id}`, value: JSON.stringify(isUser) });
+    await this.cacheServices.setCache<userStoreDTO>({ key: `user-${isUser.id}`, data: isUser });
 
     return right({
       token,
@@ -102,8 +104,8 @@ export class UserUseCase implements IUserUseCase {
     };
 
     const user = await this.userRepository.update({ id, user: createUser });
-    await this.cacheServices.delete(`user-${id}`);
-    await this.cacheServices.set({ key: `user-${id}`, value: JSON.stringify(createUser) });
+    await this.cacheServices.removeCache(`user-${id}`);
+    await this.cacheServices.setCache<userResponse>({ key: `user-${id}`, data: { id, ...createUser } });
 
     return right(user);
   }
