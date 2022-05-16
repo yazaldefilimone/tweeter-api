@@ -1,4 +1,4 @@
-import { buildType, user, userParam, userResponse, userStoreDTO, userUpdateDTO } from '@/domain/user/dtos';
+import { buildType, user, userParam, userResponse, userStoreDTO, userUpdateDTO, userUpdateInputDTO } from '@/domain/user/dtos';
 
 export interface IUserRepository {
   add: (data: IUserRepository.addInput) => IUserRepository.addOutput;
@@ -6,7 +6,7 @@ export interface IUserRepository {
   findByName: ({ name }: { name: string }) => IUserRepository.findOutput<userResponse[]>;
   findByEmail: ({ email }: { email: string }) => IUserRepository.findOutput<userStoreDTO>;
   delete: ({ id }: { id: string }) => Promise<{ id: string }>;
-  update: (data: IUserRepository.updateInput) => IUserRepository.addOutput;
+  update: (data: userUpdateDTO) => IUserRepository.addOutput;
 }
 
 export namespace IUserRepository {
