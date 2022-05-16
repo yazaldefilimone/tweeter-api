@@ -5,8 +5,8 @@ export const env = {
   },
   s3: {},
   redis: {
-    username: process.env.REDIS_USERNAME,
-    password: process.env.REDIS_PASSWORD,
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
   },
   uploads: {
     path: process.env.UPLOAD_PATH,
