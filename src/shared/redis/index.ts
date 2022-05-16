@@ -1,29 +1,38 @@
-import { createClient, RedisClient } from 'redis';
+import redis from 'redis';
 import { promisify } from 'util';
 import { env } from '@/shared/env';
 
-const redis = createClient(env.redis);
-
-type IRedisSet = (key: string, value: string) => Promise<void>;
-type IRedisGet = (key: string) => Promise<string | null>;
-
-export const redisSet = function (key: string, value: string) {
-  const promiseSet: IRedisSet = promisify(redis.set);
-  return promiseSet(key, value);
+type SetCacheDataParams<T> = {
+  key: string;
+  data: T;
+  time?: number;
 };
 
-export const redisGet = function (key: string) {
-  const promiseGet: IRedisGet = promisify(redis.get);
-  return promiseGet(key);
-};
+const client = redis.createClient({
+  host: env.redis.host,
+  port: Number(env.redis.port),
+  connect_timeout: 10000,
+  max_attempts: 5,
+});
 
-export class CacheRedis {
-  async set(key: string, value: string): Promise<void> {
-    await redisSet(key, value);
+export class RedisCache {
+  // cache data remove in 30 seconds
+  private readonly cacheTime = 30;
+
+  async getCache<T>(key: string): Promise<T | null> {
+    const getAsync = promisify(client.get).bind(client);
+    const data = await getAsync(key);
+
+    if (!data) return null;
+    return JSON.parse(data) as T;
   }
 
-  async get(key: string): Promise<string | null> {
-    const cache = await redisGet(key);
-    return cache;
+  async setCache<T>({ data, key, time = this.cacheTime }: SetCacheDataParams<T>): Promise<void> {
+    const setexAsync = promisify(client.setex).bind(client);
+    await setexAsync(key, time, JSON.stringify(data));
+  }
+
+  async removeCache(key: string): Promise<void> {
+    client.del(key);
   }
 }
