@@ -4,4 +4,8 @@ export const env = {
     key: process.env.HASH || 'Haxuuywecusvcuidc2edxvcwdue',
   },
   s3: {},
+  redis: {
+    username: process.env.REDIS_USERNAME,
+    password: process.env.REDIS_PASSWORD,
+  },
 };
