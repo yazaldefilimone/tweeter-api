@@ -43,3 +43,16 @@ export type userToken = {
   };
   token: string;
 };
+
+export type userUpdateDTO = {
+  id: string;
+  user: {
+    name: string;
+    email: string;
+    password: string;
+    bio: string;
+    banner_url: string | null;
+    avatar_url: string | null;
+    created_at: Date;
+  };
+};
