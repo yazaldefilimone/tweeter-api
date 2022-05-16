@@ -4,7 +4,7 @@ import { findUserContracts, loginUserContracts, signUserContracts } from './cont
 export interface IUserUseCase {
   signup: (data: IUserUseCase.signInput) => IUserUseCase.signOutput;
   login: (data: IUserUseCase.loginInput) => IUserUseCase.loginOutput;
-  update: (data: IUserUseCase.updateInput) => IUserUseCase.loginOutput;
+  update: (data: IUserUseCase.updateInput) => IUserUseCase.signOutput;
 }
 export namespace IUserUseCase {
   export type signInput = user;
