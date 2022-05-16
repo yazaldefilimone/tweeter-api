@@ -1,15 +1,12 @@
 export interface ICacheServices {
-  set: (data: ICacheServices.InputSet) => ICacheServices.outputSet;
-  get: (key: string) => ICacheServices.outPut;
-  delete: (key: string) => ICacheServices.outPut;
+  getCache<T>(key: string): Promise<T | null>;
+  setCache<T>(data: ICacheServices.InputSetCache<T>): Promise<void>;
+  removeCache(key: string): Promise<void>;
 }
-
 export namespace ICacheServices {
-  export type outputSet = Promise<string>;
-  export type InputSet = {
+  export type InputSetCache<T> = {
     key: string;
-    value: string;
+    data: T;
     time?: number;
   };
-  export type outPut = Promise<void>;
 }
