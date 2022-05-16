@@ -66,5 +66,15 @@ export type userUpdateDTO = {
     birth_date: Date | null;
   };
 };
+export type userUpdateInputDTO = {
+  name: string;
+  email: string;
+  password: string;
+  bio: string;
+  website_url: string | null;
+  localization: string | null;
+  birth_date: Date | null;
+  created_at: Date;
+};
 
-export type buildType = Omit<Omit<Omit<userStoreDTO, 'avatar_url'>, 'banner_url'>, 'created_at'>;
+export type buildType = Omit<Omit<userStoreDTO, 'avatar_url'>, 'banner_url'>;
