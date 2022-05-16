@@ -101,14 +101,14 @@ export class UserUseCase implements IUserUseCase {
       email: build.value.email,
       bio: build.value.bio,
       password: passwordHash,
-      website_url: isUser.website_url,
-      localization: isUser.localization,
-      birth_date: isUser.birth_date,
+      website_url: data.website_url,
+      localization: data.localization,
+      birth_date: data.birth_date,
     };
 
     const user = await this.userRepository.update({ id, data: createUser });
     await this.cacheServices.removeCache(`user-${id}`);
-    await this.cacheServices.setCache<buildType>({ key: `user-${id}`, data: { id, ...createUser } });
+    await this.cacheServices.setCache<buildType>({ key: `user-${id}`, data: { id, ...createUser, created_at: isUser.created_at } });
 
     return right(user);
   }
