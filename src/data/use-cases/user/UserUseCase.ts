@@ -7,9 +7,11 @@ import { AlreadyExistsError, NotFoundError } from '@/domain/errors';
 import { IEncoder } from '@/data/contracts/encoder';
 import { InvalidPasswordError } from '@/domain/user/errors';
 import { createJWT } from '@/shared/security';
+import { ICacheServices } from '@/data/services/cache/ICacheServices';
 export class UserUseCase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
   private readonly encoder: IEncoder;
+  private readonly cacheServices: ICacheServices;
   constructor(userRepository: IUserRepository, encoder: IEncoder) {
     this.userRepository = userRepository;
     this.encoder = encoder;
@@ -60,6 +62,8 @@ export class UserUseCase implements IUserUseCase {
     }
     const token = createJWT({ email: isUser.email, id: isUser.id });
 
+    await this.cacheServices.set({ key: `user-${isUser.id}`, value: JSON.stringify(isUser) });
+
     return right({
       token,
       user: {
@@ -72,5 +76,35 @@ export class UserUseCase implements IUserUseCase {
         created_at: isUser.created_at,
       },
     });
+  }
+
+  async update({ id, data }: IUserUseCase.updateInput): IUserUseCase.signOutput {
+    const build = new User().build(data);
+    if (build.isLeft()) {
+      return left(build.value);
+    }
+
+    const isUser = await this.userRepository.findById({ id });
+    if (!isUser) {
+      return left(new NotFoundError('user'));
+    }
+
+    const passwordHash = await this.encoder.encode(build.value.password);
+
+    const createUser = {
+      name: build.value.name,
+      email: build.value.email,
+      bio: build.value.bio,
+      password: passwordHash,
+      avatar_url: build.value.avatar_url,
+      banner_url: build.value.banner_url,
+      created_at: build.value.created_at,
+    };
+
+    const user = await this.userRepository.update({ id, user: createUser });
+    await this.cacheServices.delete(`user-${id}`);
+    await this.cacheServices.set({ key: `user-${id}`, value: JSON.stringify(createUser) });
+
+    return right(user);
   }
 }
