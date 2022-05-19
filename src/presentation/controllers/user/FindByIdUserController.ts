@@ -8,7 +8,7 @@ export class FindByIdUserController {
   }
 
   async execute(request: Request, response: Response): Promise<Response> {
-    if (!request.body) {
+    if (!request.params) {
       return response.status(204).json({ message: 'body is required' });
     }
     const data = request.params;
