@@ -111,4 +111,8 @@ export class UserRepository implements IUserRepository {
     });
     return user;
   }
+  async find(): IUserRepository.findOutput<userResponse[]> {
+    const users = await this.prismaClient.user.findMany();
+    return users;
+  }
 }
