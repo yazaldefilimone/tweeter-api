@@ -137,4 +137,21 @@ export class UserUseCase implements IUserUseCase {
     await this.cacheServices.setCache<userResponse>({ key: `user-${result.id}`, data: result });
     return right({ id: result.id });
   }
+  async findById({ id }: { id: string }): IUserUseCase.signOutput {
+    const isUser = await this.userRepository.findById({ id });
+
+    if (!isUser) {
+      return left(new NotFoundError('user'));
+    }
+
+    return right(isUser);
+  }
+  async findAll(): IUserUseCase.findOutput<userResponse[]> {
+    const users = (await this.userRepository.find()) as userResponse[];
+    if (!users) {
+      right(new NotFoundError('users'));
+    }
+
+    return right(users);
+  }
 }
