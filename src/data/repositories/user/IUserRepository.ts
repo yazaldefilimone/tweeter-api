@@ -7,8 +7,8 @@ export interface IUserRepository {
   findByEmail: ({ email }: { email: string }) => IUserRepository.findOutput<userStoreDTO>;
   delete: ({ id }: { id: string }) => Promise<{ id: string }>;
   update: (data: userUpdateDTO) => IUserRepository.addOutput;
-  updateAvatar: (data: { avatar: string }) => IUserRepository.updateAssets;
-  updateBanner: (data: { banner: string }) => IUserRepository.updateAssets;
+  updateAvatar: (data: { id: string; avatar: string }) => IUserRepository.addOutput;
+  updateBanner: (data: { id: string; banner: string }) => IUserRepository.addOutput;
 }
 
 export namespace IUserRepository {

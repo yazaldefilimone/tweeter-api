@@ -9,6 +9,7 @@ import { InvalidPasswordError } from '@/domain/user/errors';
 import { createJWT } from '@/shared/security';
 import { ICacheServices } from '@/data/services/cache/ICacheServices';
 import { buildType, userResponse, userStoreDTO } from '@/domain/user/dtos';
+import { threadId } from 'worker_threads';
 export class UserUseCase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
   private readonly encoder: IEncoder;
@@ -111,5 +112,29 @@ export class UserUseCase implements IUserUseCase {
     await this.cacheServices.setCache<buildType>({ key: `user-${id}`, data: { id, ...createUser, created_at: isUser.created_at } });
 
     return right(user);
+  }
+  async updateAvatar(data: { id: string; avatar: string }): IUserUseCase.updateOutput {
+    const isExits = await this.userRepository.findById({ id: data.id });
+
+    if (!isExits) {
+      return left(new NotFoundError('user'));
+    }
+
+    const result = await this.userRepository.updateAvatar(data);
+    await this.cacheServices.removeCache(`user-${result.id}`);
+    await this.cacheServices.setCache<userResponse>({ key: `user-${result.id}`, data: result });
+    return right({ id: result.id });
+  }
+
+  async updateBanner(data: { id: string; banner: string }): IUserUseCase.updateOutput {
+    const isExits = await this.userRepository.findById({ id: data.id });
+
+    if (!isExits) {
+      return left(new NotFoundError('user'));
+    }
+    const result = await this.userRepository.updateBanner(data);
+    await this.cacheServices.removeCache(`user-${result.id}`);
+    await this.cacheServices.setCache<userResponse>({ key: `user-${result.id}`, data: result });
+    return right({ id: result.id });
   }
 }

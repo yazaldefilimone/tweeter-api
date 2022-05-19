@@ -8,6 +8,25 @@ export class UserRepository implements IUserRepository {
   constructor() {
     this.prismaClient = prismaClient;
   }
+  async updateAvatar(data: { id: string; avatar: string }): IUserRepository.addOutput {
+    const user = await this.prismaClient.user.update({
+      where: { id: data.id },
+      data: {
+        avatar_url: data.avatar,
+      },
+    });
+    return user;
+  }
+
+  async updateBanner(data: { id: string; banner: string }): IUserRepository.addOutput {
+    const user = await this.prismaClient.user.update({
+      where: { id: data.id },
+      data: {
+        banner_url: data.banner,
+      },
+    });
+    return user;
+  }
 
   async findById({ id }: { id: string }): IUserRepository.findOutput<userResponse> {
     const user = await this.prismaClient.user.findUnique({
