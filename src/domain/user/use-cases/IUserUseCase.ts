@@ -9,6 +9,8 @@ export interface IUserUseCase {
   updateProfile: (data: IUserUseCase.updateInput) => IUserUseCase.signOutput;
   updateAvatar: (data: { id: string; avatar: string }) => IUserUseCase.updateOutput;
   updateBanner: (data: { id: string; banner: string }) => IUserUseCase.updateOutput;
+  findById: ({ id }: { id: string }) => IUserUseCase.signOutput;
+  findAll: ({ id }: { id: string }) => IUserUseCase.signOutput;
 }
 export namespace IUserUseCase {
   export type signInput = user;
