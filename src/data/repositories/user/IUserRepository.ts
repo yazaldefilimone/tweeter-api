@@ -7,9 +7,12 @@ export interface IUserRepository {
   findByEmail: ({ email }: { email: string }) => IUserRepository.findOutput<userStoreDTO>;
   delete: ({ id }: { id: string }) => Promise<{ id: string }>;
   update: (data: userUpdateDTO) => IUserRepository.addOutput;
+  updateAvatar: (data: { avatar: string }) => IUserRepository.updateAssets;
+  updateBanner: (data: { banner: string }) => IUserRepository.updateAssets;
 }
 
 export namespace IUserRepository {
+  export type updateAssets = Promise<{ id: string }>;
   export type addInput = buildType;
   export type updateInput = userUpdateDTO;
   export type addOutput = Promise<userResponse>;
