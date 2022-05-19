@@ -19,7 +19,7 @@ export class FindByIdUserController {
     }
 
     return response.status(200).json({
-      ...userOrError,
+      ...userOrError.value,
     });
   }
 }
