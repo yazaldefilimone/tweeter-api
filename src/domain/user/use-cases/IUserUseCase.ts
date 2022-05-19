@@ -10,6 +10,7 @@ export interface IUserUseCase {
   updateAvatar: (data: { id: string; avatar: string }) => IUserUseCase.updateOutput;
   updateBanner: (data: { id: string; banner: string }) => IUserUseCase.updateOutput;
   findById: ({ id }: { id: string }) => IUserUseCase.signOutput;
+  findByName: ({ name }: { name: string }) => IUserUseCase.findOutput<userResponse[]>;
   findAll: () => IUserUseCase.findOutput<userResponse[]>;
 }
 export namespace IUserUseCase {
