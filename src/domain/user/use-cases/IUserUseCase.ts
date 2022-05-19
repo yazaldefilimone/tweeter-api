@@ -1,6 +1,6 @@
 import { NotFoundError } from '@/domain/errors';
 import { Either } from '@/shared/error-handler/either';
-import { user, userParam, userUpdateDTO } from '../dtos';
+import { user, userParam, userResponse, userUpdateDTO } from '../dtos';
 import { findUserContracts, loginUserContracts, signUserContracts } from './contracts';
 
 export interface IUserUseCase {
@@ -10,7 +10,7 @@ export interface IUserUseCase {
   updateAvatar: (data: { id: string; avatar: string }) => IUserUseCase.updateOutput;
   updateBanner: (data: { id: string; banner: string }) => IUserUseCase.updateOutput;
   findById: ({ id }: { id: string }) => IUserUseCase.signOutput;
-  findAll: ({ id }: { id: string }) => IUserUseCase.signOutput;
+  findAll: () => IUserUseCase.findOutput<userResponse[]>;
 }
 export namespace IUserUseCase {
   export type signInput = user;
