@@ -154,4 +154,19 @@ export class UserUseCase implements IUserUseCase {
 
     return right(users);
   }
+
+  async findByName({ name }: { name: string }): IUserUseCase.findOutput<userResponse[]> {
+    const IsName = new User().isValidName(name);
+
+    if (IsName.isLeft()) {
+      return left(IsName.value);
+    }
+
+    const users = (await this.userRepository.findByName({ name: IsName.value })) as userResponse[];
+    if (!users) {
+      right(new NotFoundError('users'));
+    }
+
+    return right(users);
+  }
 }
