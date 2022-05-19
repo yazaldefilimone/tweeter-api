@@ -14,14 +14,15 @@ tweeter and a mini social network inspired by twitter.
 - [x] fazer cache de usuário.
 - [x] Criação de profile do usuário
 
-  - [ ] O usuário pode usar o avatar
-  - [ ] O usuário pode escolher um banner para o profile
-  - [ ] O usuário pode definir sua localização
-  - [ ] O usuário pode definir sua data de nascimento
-  - [ ] O usuário pode definir um link para o seu website
+  - [x] O usuário pode usar o avatar
+  - [x] O usuário pode escolher um banner para o profile
+  - [x] O usuário pode definir sua localização
+  - [x] O usuário pode definir sua data de nascimento
+  - [x] O usuário pode definir um link para o seu website
 
-- [ ] Busca de usuários
-  - [ ] Buscar por nome
+- [x] Busca de usuários
+  - [x] Buscar por nome
+  - [x] Buscar por id
 - [ ] Criação de posts
   - [ ] Apenas usuários autenticados podem criar posts
   - [ ] Lista de posts deve ser ordenada por data de criação
