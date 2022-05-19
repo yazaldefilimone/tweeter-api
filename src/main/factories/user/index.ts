@@ -2,8 +2,7 @@ import { UserUseCase } from '@/data/use-cases/user';
 import { Encoder } from '@/infra/encoder';
 import { UserRepository } from '@/infra/prisma/repositories/user';
 import { CacheServices } from '@/infra/services/cache';
-import { SignUpUserController, LoginUserController } from '@/presentation/controllers/user';
-import { UpdateUserProfileController } from '@/presentation/controllers/user/UpdateUserController';
+import { SignUpUserController, LoginUserController, UpdateAvatarController, UpdateUserProfileController } from '@/presentation/controllers/user';
 import { Request, Response } from 'express';
 
 const userRepository = new UserRepository();
@@ -25,6 +24,16 @@ export const makeLoginFacture = async function (request: Request, response: Resp
 
 export const makeUpdateProfileFacture = async function (request: Request, response: Response) {
   const loginUserController = new UpdateUserProfileController(userUseCase);
+  const controller = await loginUserController.execute(request, response);
+  return controller;
+};
+export const makeUpdateAvatarFacture = async function (request: Request, response: Response) {
+  const loginUserController = new UpdateAvatarController(userUseCase);
+  const controller = await loginUserController.execute(request, response);
+  return controller;
+};
+export const makeUpdateBannerFacture = async function (request: Request, response: Response) {
+  const loginUserController = new UpdateAvatarController(userUseCase);
   const controller = await loginUserController.execute(request, response);
   return controller;
 };
