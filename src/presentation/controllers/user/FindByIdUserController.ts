@@ -9,7 +9,7 @@ export class FindByIdUserController {
 
   async execute(request: Request, response: Response): Promise<Response> {
     if (!request.params) {
-      return response.status(204).json({ message: 'body is required' });
+      return response.status(204).json({ message: 'param is required' });
     }
     const data = request.params;
     const userOrError = await this.userUseCase.findById({ id: data.id });
@@ -18,8 +18,6 @@ export class FindByIdUserController {
       return response.status(400).json({ message: userOrError.value.message });
     }
 
-    return response.status(200).json({
-      ...userOrError.value,
-    });
+    return response.status(200).json(userOrError.value);
   }
 }

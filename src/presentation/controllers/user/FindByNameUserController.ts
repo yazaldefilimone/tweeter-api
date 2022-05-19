@@ -18,8 +18,6 @@ export class FindByNameUserController {
       return response.status(400).json({ message: userOrError.value.message });
     }
 
-    return response.status(201).json({
-      ...userOrError.value,
-    });
+    return response.status(201).json(userOrError.value);
   }
 }

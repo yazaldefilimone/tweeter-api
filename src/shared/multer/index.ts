@@ -1,6 +1,7 @@
 import multer from 'multer';
 import { randomUUID } from 'crypto';
 import { env } from '@/shared/env';
+console.log(env.uploads);
 
 export const multerImageUploadConfig = {
   storage: multer.diskStorage({
