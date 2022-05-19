@@ -2,7 +2,15 @@ import { UserUseCase } from '@/data/use-cases/user';
 import { Encoder } from '@/infra/encoder';
 import { UserRepository } from '@/infra/prisma/repositories/user';
 import { CacheServices } from '@/infra/services/cache';
-import { SignUpUserController, LoginUserController, UpdateAvatarController, UpdateUserProfileController } from '@/presentation/controllers/user';
+import {
+  SignUpUserController,
+  LoginUserController,
+  UpdateAvatarController,
+  UpdateUserProfileController,
+  FindAllUserController,
+  FindByIdUserController,
+  FindByNameUserController,
+} from '@/presentation/controllers/user';
 import { Request, Response } from 'express';
 
 const userRepository = new UserRepository();
@@ -34,6 +42,21 @@ export const makeUpdateAvatarFacture = async function (request: Request, respons
 };
 export const makeUpdateBannerFacture = async function (request: Request, response: Response) {
   const loginUserController = new UpdateAvatarController(userUseCase);
+  const controller = await loginUserController.execute(request, response);
+  return controller;
+};
+export const makeFindAllFacture = async function (request: Request, response: Response) {
+  const loginUserController = new FindAllUserController(userUseCase);
+  const controller = await loginUserController.execute(request, response);
+  return controller;
+};
+export const makeFindByIdFacture = async function (request: Request, response: Response) {
+  const loginUserController = new FindByIdUserController(userUseCase);
+  const controller = await loginUserController.execute(request, response);
+  return controller;
+};
+export const makeFindByNameFacture = async function (request: Request, response: Response) {
+  const loginUserController = new FindByNameUserController(userUseCase);
   const controller = await loginUserController.execute(request, response);
   return controller;
 };
