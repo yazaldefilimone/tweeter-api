@@ -6,3 +6,4 @@ export * from './UpdateBannerController';
 export * from './FindAllUserController';
 export * from './FindByNameUserController';
 export * from './FindByIdUserController';
+export * from './DeleteUserByIdController';
