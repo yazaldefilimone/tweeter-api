@@ -71,6 +71,19 @@ export class UserRepository implements IUserRepository {
     const user = await this.prismaClient.user.update({
       where: { id },
       data,
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        bio: true,
+        password: false,
+        banner_url: true,
+        avatar_url: true,
+        website_url: true,
+        localization: true,
+        birth_date: true,
+        created_at: true,
+      },
     });
     return user;
   }
