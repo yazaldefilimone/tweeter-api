@@ -12,6 +12,7 @@ export interface IUserUseCase {
   findById: ({ id }: { id: string }) => IUserUseCase.signOutput;
   findByName: ({ name }: { name: string }) => IUserUseCase.findOutput<userResponse[]>;
   findAll: () => IUserUseCase.findOutput<userResponse[]>;
+  deleteById: ({ id }: { id: string }) => IUserUseCase.updateOutput;
 }
 export namespace IUserUseCase {
   export type signInput = user;
