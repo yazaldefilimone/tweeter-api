@@ -169,4 +169,16 @@ export class UserUseCase implements IUserUseCase {
 
     return right(users);
   }
+  async deleteById({ id }: { id: string }): IUserUseCase.updateOutput {
+    const isUser = this.userRepository.findById({ id });
+    if (!isUser) {
+      return left(new NotFoundError('user'));
+    }
+
+    const result = await this.userRepository.delete({ id });
+
+    await this.cacheServices.removeCache(`user-${result.id}`);
+
+    return right({ id: result.id });
+  }
 }
