@@ -10,6 +10,7 @@ import {
   FindAllUserController,
   FindByIdUserController,
   FindByNameUserController,
+  DeleteUserByIdController,
 } from '@/presentation/controllers/user';
 import { Request, Response } from 'express';
 
@@ -31,32 +32,43 @@ export const makeLoginFacture = async function (request: Request, response: Resp
 };
 
 export const makeUpdateProfileFacture = async function (request: Request, response: Response) {
-  const loginUserController = new UpdateUserProfileController(userUseCase);
-  const controller = await loginUserController.execute(request, response);
+  const updateUserProfileController = new UpdateUserProfileController(userUseCase);
+  const controller = await updateUserProfileController.execute(request, response);
   return controller;
 };
+
 export const makeUpdateAvatarFacture = async function (request: Request, response: Response) {
-  const loginUserController = new UpdateAvatarController(userUseCase);
-  const controller = await loginUserController.execute(request, response);
+  const updateAvatarController = new UpdateAvatarController(userUseCase);
+  const controller = await updateAvatarController.execute(request, response);
   return controller;
 };
+
 export const makeUpdateBannerFacture = async function (request: Request, response: Response) {
-  const loginUserController = new UpdateAvatarController(userUseCase);
-  const controller = await loginUserController.execute(request, response);
+  const updateAvatarController = new UpdateAvatarController(userUseCase);
+  const controller = await updateAvatarController.execute(request, response);
   return controller;
 };
+
 export const makeFindAllFacture = async function (request: Request, response: Response) {
-  const loginUserController = new FindAllUserController(userUseCase);
-  const controller = await loginUserController.execute(request, response);
+  const findAllUserController = new FindAllUserController(userUseCase);
+  const controller = await findAllUserController.execute(request, response);
   return controller;
 };
+
 export const makeFindByIdFacture = async function (request: Request, response: Response) {
-  const loginUserController = new FindByIdUserController(userUseCase);
-  const controller = await loginUserController.execute(request, response);
+  const findByIdUserController = new FindByIdUserController(userUseCase);
+  const controller = await findByIdUserController.execute(request, response);
   return controller;
 };
+
 export const makeFindByNameFacture = async function (request: Request, response: Response) {
-  const loginUserController = new FindByNameUserController(userUseCase);
-  const controller = await loginUserController.execute(request, response);
+  const findByNameUserController = new FindByNameUserController(userUseCase);
+  const controller = await findByNameUserController.execute(request, response);
+  return controller;
+};
+
+export const makeDeleteUserByIdFacture = async function (request: Request, response: Response) {
+  const deleteUserByIdController = new DeleteUserByIdController(userUseCase);
+  const controller = await deleteUserByIdController.execute(request, response);
   return controller;
 };
