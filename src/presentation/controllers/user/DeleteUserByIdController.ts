@@ -8,10 +8,10 @@ export class DeleteUserByIdController {
   }
 
   async execute(request: Request, response: Response): Promise<Response> {
-    if (!request.body) {
-      return response.status(204).json({ message: 'body is required' });
+    if (!request.params) {
+      return response.status(204).json({ message: 'params is required' });
     }
-    const { id } = request.body;
+    const { id } = request.params;
 
     const usersOrError = await this.userUseCase.deleteById({ id });
 
