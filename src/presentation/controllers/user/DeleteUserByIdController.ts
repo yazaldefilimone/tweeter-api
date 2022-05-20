@@ -19,6 +19,6 @@ export class DeleteUserByIdController {
       return response.status(400).json({ message: usersOrError.value.message });
     }
 
-    return response.status(201).json(usersOrError.value);
+    return response.status(200).json(usersOrError.value);
   }
 }
