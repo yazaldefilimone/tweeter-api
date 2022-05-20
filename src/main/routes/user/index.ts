@@ -24,5 +24,6 @@ usersRouter.put('/update/banner', authUserJwtMiddleware, multerImageUpload.singl
 usersRouter.get('/find', authUserJwtMiddleware, makeFindAllFacture);
 usersRouter.get('/find/name/:name', authUserJwtMiddleware, makeFindByNameFacture);
 usersRouter.get('/find/id/:id', authUserJwtMiddleware, makeFindByIdFacture);
+usersRouter.get('/delete/id/:id', authUserJwtMiddleware, makeFindByIdFacture);
 
 export { usersRouter };
