@@ -7,6 +7,7 @@ import {
   makeFindAllFacture,
   makeFindByNameFacture,
   makeFindByIdFacture,
+  makeDeleteUserByIdFacture,
 } from '@/main/factories/user';
 import { authUserJwtMiddleware } from '@/main/middlewares/auth-middlewares';
 import { multerImageUploadConfig } from '@/shared/multer';
@@ -24,6 +25,6 @@ usersRouter.put('/update/banner', authUserJwtMiddleware, multerImageUpload.singl
 usersRouter.get('/find', authUserJwtMiddleware, makeFindAllFacture);
 usersRouter.get('/find/name/:name', authUserJwtMiddleware, makeFindByNameFacture);
 usersRouter.get('/find/id/:id', authUserJwtMiddleware, makeFindByIdFacture);
-usersRouter.get('/delete/id/:id', authUserJwtMiddleware, makeFindByIdFacture);
+usersRouter.delete('/delete/id/:id', authUserJwtMiddleware, makeDeleteUserByIdFacture);
 
 export { usersRouter };
