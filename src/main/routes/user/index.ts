@@ -11,10 +11,11 @@ import {
 } from '@/main/factories/user';
 import { authUserJwtMiddleware } from '@/main/middlewares/auth-middlewares';
 import { multerImageUploadConfig } from '@/shared/multer';
+
 import { Router } from 'express';
 import multer from 'multer';
-
 const usersRouter = Router();
+
 const multerImageUpload = multer(multerImageUploadConfig);
 
 usersRouter.post('/signup', makeSignUpFacture);
