@@ -4,6 +4,12 @@ import { prismaClient } from '@/infra/prisma/settings';
 import { PrismaClient } from '@prisma/client';
 
 export class UserRepository implements IUserRepository {
+  private readonly selectGetUsersSimpleData = {
+    name: true,
+    avatar_url: true,
+    localization: true,
+    birth_date: true,
+  };
   private prismaClient: PrismaClient;
   constructor() {
     this.prismaClient = prismaClient;
@@ -96,21 +102,20 @@ export class UserRepository implements IUserRepository {
   }
 
   async findByName({ name }: { name: string }): IUserRepository.findOutput<userResponse[]> {
-    const user = await this.prismaClient.user.findMany({
-      where: { name },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bio: true,
-        banner_url: true,
-        avatar_url: true,
-        website_url: true,
-        localization: true,
-        birth_date: true,
-        created_at: true,
+    const user = (await this.prismaClient.user.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: 'insensitive',
+        },
       },
-    });
+      select: this.selectGetUsersSimpleData,
+      orderBy: {
+        name: 'asc',
+      },
+      skip: 0,
+      take: 15,
+    })) as any;
 
     return user;
   }
@@ -124,8 +129,14 @@ export class UserRepository implements IUserRepository {
     });
     return user;
   }
-  async find(): IUserRepository.findOutput<userResponse[]> {
+  async find(data: any): IUserRepository.findOutput<userResponse[]> {
+    const page = data.page < 1 ? 1 : data.page;
+    const limit = data.limit < 1 ? 10 : data.limit;
+
     const users = await this.prismaClient.user.findMany({
+      skip: (page - 1) * data.limit,
+      take: limit,
+      orderBy: { created_at: 'desc' },
       select: {
         id: true,
         name: true,
