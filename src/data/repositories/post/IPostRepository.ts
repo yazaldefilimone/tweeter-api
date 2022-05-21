@@ -13,7 +13,7 @@ export interface IPostRepository {
 export namespace IPostRepository {
   export type updateAssets = Promise<{ id: string }>;
   export type addInput = post;
-  export type findMany = Promise<postUseCaseSuccessMany | null>;
+  export type findMany = Promise<postUseCaseSuccessMany>;
   export type addOutput = Promise<postUseCaseSuccess>;
   export type findOutput = Promise<postUseCaseSuccess | null>;
 }
