@@ -1,4 +1,5 @@
 import { IPostRepository } from '@/data/repositories/post';
+import { IUserRepository } from '@/data/repositories/user';
 import { ICacheServices } from '@/data/services/cache/ICacheServices';
 import { NotFoundError } from '@/domain/errors';
 import { postStorage } from '@/domain/post/dtos';
@@ -8,10 +9,12 @@ import { left, right } from '@/shared/error-handler/either';
 
 export class PostUseCase implements IPostUseCase {
   private readonly postRepository: IPostRepository;
+  private readonly userRepository: IUserRepository;
   private readonly cacheServices: ICacheServices;
-  constructor(postRepository: IPostRepository, cacheServices: ICacheServices) {
+  constructor(postRepository: IPostRepository, cacheServices: ICacheServices, userRepository: IUserRepository) {
     this.postRepository = postRepository;
     this.cacheServices = cacheServices;
+    this.userRepository = userRepository;
   }
 
   private id(id: string): string {
@@ -29,6 +32,7 @@ export class PostUseCase implements IPostUseCase {
     this.cacheServices.setCache({ key: this.id(postStore.id), data: data });
     return right(postStore);
   }
+
   async findById({ id }: IPostUseCase.InputId): IPostUseCase.Output {
     const cache = await this.cacheServices.getCache<postStorage>(this.id(id));
     if (cache) {
@@ -40,5 +44,16 @@ export class PostUseCase implements IPostUseCase {
     }
 
     return right(post);
+  }
+
+  async findByUserId(data: { userId: string; limit: number; page: number }): IPostUseCase.OutputMany {
+    const user = this.userRepository.findById({ id: data.userId });
+
+    if (!user) {
+      return left(new NotFoundError('user'));
+    }
+    const posts = await this.postRepository.findByUser(data);
+
+    return right(posts);
   }
 }
