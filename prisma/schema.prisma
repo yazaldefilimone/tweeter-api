@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id           String    @id
-  name         String
-  email        String    @unique
-  password     String
-  bio          String
-  avatar_url   String?
-  website_url  String?
-  localization String?
-  birth_date   DateTime?
-  banner_url   String?
-  created_at   DateTime
+  id            String   @id
+  name          String
+  email         String   @unique
+  password      String
+  bio           String
+  avatar_url    String?
+  website       String?
+  location      String
+  date_of_birth DateTime
+  banner_url    String?
+  created_at    DateTime
 
 
   Post         Post[]
