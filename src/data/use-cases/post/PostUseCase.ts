@@ -56,4 +56,8 @@ export class PostUseCase implements IPostUseCase {
 
     return right(posts);
   }
+  async find(data: { limit: number; page: number }): IPostUseCase.OutputMany {
+    const posts = await this.postRepository.find(data);
+    return right(posts);
+  }
 }
