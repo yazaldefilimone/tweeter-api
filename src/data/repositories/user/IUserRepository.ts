@@ -2,7 +2,7 @@ import { buildType, user, userParam, userResponse, userStoreDTO, userUpdateDTO, 
 
 export interface IUserRepository {
   add: (data: IUserRepository.addInput) => IUserRepository.addOutput;
-  find: () => IUserRepository.findOutput<userResponse[]>;
+  find: ({ page, limit }: { page: number; limit: number }) => IUserRepository.findOutput<userResponse[]>;
   findById: ({ id }: { id: string }) => IUserRepository.findOutput<userResponse>;
   findByName: ({ name }: { name: string }) => IUserRepository.findOutput<userResponse[]>;
   findByEmail: ({ email }: { email: string }) => IUserRepository.findOutput<userStoreDTO>;
