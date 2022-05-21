@@ -23,6 +23,9 @@ tweeter and a mini social network inspired by twitter.
 - [x] Busca de usuários
   - [x] Buscar por nome
   - [x] Buscar por id
+- [ ] Seguidores
+  - [ ] O usuário pode seguir quem ele quiser
+  - [ ] O usuário pode ser seguido com quem quiser
 - [ ] Criação de posts
   - [ ] Apenas usuários autenticados podem criar posts
   - [ ] Lista de posts deve ser ordenada por data de criação
