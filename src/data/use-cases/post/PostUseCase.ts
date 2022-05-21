@@ -60,4 +60,14 @@ export class PostUseCase implements IPostUseCase {
     const posts = await this.postRepository.find(data);
     return right(posts);
   }
+
+  async deleteById(data: { id: string; userId: string }): IPostUseCase.DeleteOutput {
+    const user = this.userRepository.findById({ id: data.userId });
+
+    if (!user) {
+      return left(new NotFoundError('user'));
+    }
+    const post = await this.postRepository.delete({ id: data.id });
+    return right(post);
+  }
 }
