@@ -4,7 +4,7 @@ import { postStorage } from '@/domain/post/dtos';
 import { InvalidContentError } from '@/domain/post/errors';
 
 export type postUseCaseSuccess = postStorage;
-export type postUseCaseSuccessMany = postStorage[];
+export type postUseCaseSuccessMany = postStorage[] | [];
 export type postUseCaseFailed = InvalidContentError | NotFoundError;
 export type postUseCaseFailedMany = NotFoundError;
 
