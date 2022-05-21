@@ -26,7 +26,7 @@ const githubUsernameSchema = Joi.object({
   githubUsername: Joi.string().required().regex(new RegExp(githubUsernameRegex)).min(1).max(38),
 });
 const postContentSchema = Joi.object({
-  content: Joi.string().required().min(1).max(500),
+  content: Joi.string().required().min(1).max(2000),
 });
 
 export function isValidEmail(email: string): boolean {
