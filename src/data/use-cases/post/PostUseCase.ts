@@ -68,6 +68,7 @@ export class PostUseCase implements IPostUseCase {
       return left(new NotFoundError('user'));
     }
     const post = await this.postRepository.delete({ id: data.id });
+    await this.cacheServices.removeCache(this.id(post.id));
     return right(post);
   }
 }
