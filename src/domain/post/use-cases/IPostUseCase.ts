@@ -1,5 +1,5 @@
 import { post } from '../dtos';
-import { postUseCaseFailedMany, postUseCaseResponse, postUseCaseSuccess } from './contracts';
+import { postUseCaseFailedMany, postUseCaseResponse, postUseCaseResponseMany, postUseCaseSuccess } from './contracts';
 
 export interface IPostUseCase {
   create: (data: IPostUseCase.Input) => IPostUseCase.Output;
@@ -13,5 +13,5 @@ export namespace IPostUseCase {
   export type Input = post;
   export type InputId = { id: string };
   export type Output = Promise<postUseCaseResponse>;
-  export type OutputMany = Promise<postUseCaseFailedMany>;
+  export type OutputMany = Promise<postUseCaseResponseMany>;
 }
