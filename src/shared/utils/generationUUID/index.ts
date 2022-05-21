@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-export const generationUUID = function (isDomain = false) {
+export const generationUUID = function ({ isDomain }: { isDomain: boolean }) {
   if (isDomain) {
     return v4();
   }
