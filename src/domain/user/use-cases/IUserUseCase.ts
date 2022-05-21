@@ -11,7 +11,7 @@ export interface IUserUseCase {
   updateBanner: (data: { id: string; banner: string }) => IUserUseCase.updateOutput;
   findById: ({ id }: { id: string }) => IUserUseCase.signOutput;
   findByName: ({ name }: { name: string }) => IUserUseCase.findOutput<userResponse[]>;
-  findAll: () => IUserUseCase.findOutput<userResponse[]>;
+  findAll: ({ page, limit }: { page: number; limit: number }) => IUserUseCase.findOutput<userResponse[]>;
   deleteById: ({ id }: { id: string }) => IUserUseCase.updateOutput;
 }
 export namespace IUserUseCase {

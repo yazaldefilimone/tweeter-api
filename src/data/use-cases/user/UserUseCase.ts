@@ -152,8 +152,8 @@ export class UserUseCase implements IUserUseCase {
 
     return right(cache);
   }
-  async findAll(): IUserUseCase.findOutput<userResponse[]> {
-    const users = (await this.userRepository.find()) as userResponse[];
+  async findAll({ page, limit }: { page: number; limit: number }): IUserUseCase.findOutput<userResponse[]> {
+    const users = (await this.userRepository.find({ page, limit })) as userResponse[];
     if (!users) {
       right(new NotFoundError('users'));
     }
@@ -180,7 +180,6 @@ export class UserUseCase implements IUserUseCase {
     if (!isUser) {
       return left(new NotFoundError('user'));
     }
-
     const result = await this.userRepository.delete({ id });
 
     await this.cacheServices.removeCache(`user-${result.id}`);
