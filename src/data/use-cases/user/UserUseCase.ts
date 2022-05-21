@@ -20,6 +20,9 @@ export class UserUseCase implements IUserUseCase {
     this.encoder = encoder;
   }
 
+  private id(id: string) {
+    return `user-${id}`;
+  }
   async signup(data: IUserUseCase.signInput): IUserUseCase.signOutput {
     const build = new User().build(data);
     if (build.isLeft()) {
@@ -65,7 +68,7 @@ export class UserUseCase implements IUserUseCase {
     }
     const token = createJWT({ email: isUser.email, id: isUser.id });
 
-    await this.cacheServices.setCache<userStoreDTO>({ key: `user-${isUser.id}`, data: isUser });
+    await this.cacheServices.setCache<userStoreDTO>({ key: this.id(isUser.id), data: isUser });
 
     return right({
       token,
@@ -108,8 +111,8 @@ export class UserUseCase implements IUserUseCase {
     };
 
     const user = await this.userRepository.update({ id, data: createUser });
-    await this.cacheServices.removeCache(`user-${id}`);
-    await this.cacheServices.setCache<buildType>({ key: `user-${id}`, data: { id, ...createUser, created_at: isUser.created_at } });
+    await this.cacheServices.removeCache(this.id(id));
+    await this.cacheServices.setCache<buildType>({ key: this.id(id), data: { id, ...createUser, created_at: isUser.created_at } });
 
     return right(user);
   }
@@ -121,8 +124,8 @@ export class UserUseCase implements IUserUseCase {
     }
 
     const result = await this.userRepository.updateAvatar(data);
-    await this.cacheServices.removeCache(`user-${result.id}`);
-    await this.cacheServices.setCache<userResponse>({ key: `user-${result.id}`, data: result });
+    await this.cacheServices.removeCache(this.id(result.id));
+    await this.cacheServices.setCache<userResponse>({ key: this.id(result.id), data: result });
     return right({ id: result.id });
   }
 
@@ -133,12 +136,12 @@ export class UserUseCase implements IUserUseCase {
       return left(new NotFoundError('user'));
     }
     const result = await this.userRepository.updateBanner(data);
-    await this.cacheServices.removeCache(`user-${result.id}`);
-    await this.cacheServices.setCache<userResponse>({ key: `user-${result.id}`, data: result });
+    await this.cacheServices.removeCache(this.id(result.id));
+    await this.cacheServices.setCache<userResponse>({ key: this.id(result.id), data: result });
     return right({ id: result.id });
   }
   async findById({ id }: { id: string }): IUserUseCase.signOutput {
-    const cache = await this.cacheServices.getCache<userResponse>(`user-${id}`);
+    const cache = await this.cacheServices.getCache<userResponse>(this.id(id));
 
     if (!cache) {
       let isUser = await this.userRepository.findById({ id });
@@ -182,7 +185,7 @@ export class UserUseCase implements IUserUseCase {
     }
     const result = await this.userRepository.delete({ id });
 
-    await this.cacheServices.removeCache(`user-${result.id}`);
+    await this.cacheServices.removeCache(this.id(result.id));
 
     return right({ id: result.id });
   }
