@@ -8,8 +8,8 @@ import { IEncoder } from '@/data/contracts/encoder';
 import { InvalidPasswordError } from '@/domain/user/errors';
 import { createJWT } from '@/shared/security';
 import { ICacheServices } from '@/data/services/cache/ICacheServices';
-import { buildType, userResponse, userStoreDTO } from '@/domain/user/dtos';
-import { threadId } from 'worker_threads';
+import { UserDTO, UserStoredDTO } from '@/domain/user/dtos';
+import { UserMappers } from '@/domain/user/mappers';
 export class UserUseCase implements IUserUseCase {
   private readonly userRepository: IUserRepository;
   private readonly encoder: IEncoder;
@@ -29,15 +29,15 @@ export class UserUseCase implements IUserUseCase {
       return left(build.value);
     }
 
-    const userBuilder = build.value;
-    const isExists = await this.userRepository.findByEmail({ email: userBuilder.email });
+    const userBuild = build.value;
+    const isExists = await this.userRepository.findByEmail({ email: userBuild.email });
 
     if (isExists) {
       return left(new AlreadyExistsError('user'));
     }
-    userBuilder.password = await this.encoder.encode(userBuilder.password);
+    userBuild.password = await this.encoder.encode(userBuild.password);
 
-    const user = await this.userRepository.add(userBuilder);
+    const user = await this.userRepository.add(userBuild);
     return right(user);
   }
 
@@ -55,35 +55,23 @@ export class UserUseCase implements IUserUseCase {
       return left(user.password.value);
     }
 
-    const isUser = await this.userRepository.findByEmail({ email: user.email.value });
+    const userOrNull = await this.userRepository.findByEmail({ email: user.email.value });
 
-    if (!isUser) {
+    if (!userOrNull) {
       return left(new NotFoundError('user'));
     }
 
-    const isOwner = await this.encoder.decode(user.password.value, isUser.password);
+    const isOwner = await this.encoder.decode(user.password.value, userOrNull.password);
 
     if (!isOwner) {
       return left(new InvalidPasswordError('password'));
     }
-    const token = createJWT({ email: isUser.email, id: isUser.id });
+    const token = createJWT({ email: userOrNull.email, id: userOrNull.id });
 
-    await this.cacheServices.setCache<userStoreDTO>({ key: this.id(isUser.id), data: isUser });
-
+    await this.cacheServices.setCache<UserStoredDTO>({ key: this.id(userOrNull.id), data: userOrNull });
     return right({
       token,
-      user: {
-        id: isUser.id,
-        name: isUser.name,
-        email: isUser.email,
-        bio: isUser.bio,
-        avatar_url: isUser.avatar_url,
-        banner_url: isUser.banner_url,
-        website_url: isUser.website_url,
-        localization: isUser.localization,
-        birth_date: isUser.birth_date,
-        created_at: isUser.created_at,
-      },
+      user: userOrNull,
     });
   }
 
@@ -93,8 +81,8 @@ export class UserUseCase implements IUserUseCase {
       return left(build.value);
     }
 
-    const isUser = await this.userRepository.findById({ id });
-    if (!isUser) {
+    const userOrNull = await this.userRepository.findById({ id });
+    if (!userOrNull) {
       return left(new NotFoundError('user'));
     }
 
@@ -105,14 +93,14 @@ export class UserUseCase implements IUserUseCase {
       email: build.value.email,
       bio: build.value.bio,
       password: passwordHash,
-      website_url: data.website_url,
-      localization: data.localization,
-      birth_date: data.birth_date,
+      website: data.website,
+      location: data.location,
+      dateOfBirth: data.dateOfBirth,
     };
 
     const user = await this.userRepository.update({ id, data: createUser });
     await this.cacheServices.removeCache(this.id(id));
-    await this.cacheServices.setCache<buildType>({ key: this.id(id), data: { id, ...createUser, created_at: isUser.created_at } });
+    await this.cacheServices.setCache<UserDTO>({ key: this.id(id), data: user });
 
     return right(user);
   }
@@ -125,7 +113,7 @@ export class UserUseCase implements IUserUseCase {
 
     const result = await this.userRepository.updateAvatar(data);
     await this.cacheServices.removeCache(this.id(result.id));
-    await this.cacheServices.setCache<userResponse>({ key: this.id(result.id), data: result });
+    await this.cacheServices.setCache<UserDTO>({ key: this.id(result.id), data: result });
     return right({ id: result.id });
   }
 
@@ -137,26 +125,26 @@ export class UserUseCase implements IUserUseCase {
     }
     const result = await this.userRepository.updateBanner(data);
     await this.cacheServices.removeCache(this.id(result.id));
-    await this.cacheServices.setCache<userResponse>({ key: this.id(result.id), data: result });
+    await this.cacheServices.setCache<UserDTO>({ key: this.id(result.id), data: result });
     return right({ id: result.id });
   }
   async findById({ id }: { id: string }): IUserUseCase.signOutput {
-    const cache = await this.cacheServices.getCache<userResponse>(this.id(id));
+    const cache = await this.cacheServices.getCache<UserDTO>(this.id(id));
 
     if (!cache) {
-      let isUser = await this.userRepository.findById({ id });
-      if (!isUser) {
+      let userOrNull = await this.userRepository.findById({ id });
+      if (!userOrNull) {
         return left(new NotFoundError('user'));
       }
-      console.log({ db: isUser });
-      return right(isUser);
+      console.log({ db: userOrNull });
+      return right(userOrNull);
     }
     console.log({ cache });
 
     return right(cache);
   }
-  async findAll({ page, limit }: { page: number; limit: number }): IUserUseCase.findOutput<userResponse[]> {
-    const users = (await this.userRepository.find({ page, limit })) as userResponse[];
+  async findAll({ page, limit }: { page: number; limit: number }): IUserUseCase.findOutput<UserDTO[]> {
+    const users = (await this.userRepository.find({ page, limit })) as UserDTO[];
     if (!users) {
       right(new NotFoundError('users'));
     }
@@ -164,14 +152,14 @@ export class UserUseCase implements IUserUseCase {
     return right(users);
   }
 
-  async findByName({ name }: { name: string }): IUserUseCase.findOutput<userResponse[]> {
+  async findByName({ name }: { name: string }): IUserUseCase.findOutput<UserDTO[]> {
     const IsName = new User().isValidName(name);
 
     if (IsName.isLeft()) {
       return left(IsName.value);
     }
 
-    const users = (await this.userRepository.findByName({ name: IsName.value })) as userResponse[];
+    const users = (await this.userRepository.findByName({ name: IsName.value })) as UserDTO[];
     if (!users) {
       right(new NotFoundError('users'));
     }
@@ -179,8 +167,8 @@ export class UserUseCase implements IUserUseCase {
     return right(users);
   }
   async deleteById({ id }: { id: string }): IUserUseCase.updateOutput {
-    const isUser = this.userRepository.findById({ id });
-    if (!isUser) {
+    const userOrNull = this.userRepository.findById({ id });
+    if (!userOrNull) {
       return left(new NotFoundError('user'));
     }
     const result = await this.userRepository.delete({ id });

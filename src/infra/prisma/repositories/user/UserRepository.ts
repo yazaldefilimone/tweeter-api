@@ -1,107 +1,109 @@
 import { IUserRepository } from '@/data/repositories/user';
-import { user, userResponse, userStoreDTO, userUpdateDTO, userUpdateInputDTO } from '@/domain/user/dtos';
+import { UserDTO, UserStoredDTO } from '@/domain/user/dtos';
+import { UserMappers } from '@/domain/user/mappers';
 import { prismaClient } from '@/infra/prisma/settings';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 
 export class UserRepository implements IUserRepository {
-  private readonly selectGetUsersSimpleData = {
-    name: true,
-    avatar_url: true,
-    localization: true,
-    birth_date: true,
-  };
   private prismaClient: PrismaClient;
   constructor() {
     this.prismaClient = prismaClient;
   }
+
+  private readonly selectGetUsersSimpleData = {
+    name: true,
+    avatar_url: true,
+    location: true,
+    date_of_birth: true,
+  };
+  private readonly selectGetUsersNotPassword = {
+    id: true,
+    name: true,
+    email: true,
+    bio: true,
+    banner_url: true,
+    avatar_url: true,
+    website: true,
+    location: true,
+    date_of_birth: true,
+    created_at: true,
+  };
+
   async updateAvatar(data: { id: string; avatar: string }): IUserRepository.addOutput {
-    const user = await this.prismaClient.user.update({
+    const userRepo = await this.prismaClient.user.update({
       where: { id: data.id },
       data: {
         avatar_url: data.avatar,
       },
     });
+    const user = UserMappers.toUserResponseDTO(userRepo);
+
     return user;
   }
 
   async updateBanner(data: { id: string; banner: string }): IUserRepository.addOutput {
-    const user = await this.prismaClient.user.update({
+    const userRepo = await this.prismaClient.user.update({
       where: { id: data.id },
       data: {
         banner_url: data.banner,
       },
     });
+    const user = UserMappers.toUserResponseDTO(userRepo);
+
     return user;
   }
 
-  async findById({ id }: { id: string }): IUserRepository.findOutput<userResponse> {
-    const user = await this.prismaClient.user.findUnique({
+  async findById({ id }: { id: string }): IUserRepository.findOutput<UserDTO> {
+    const userRepo = await this.prismaClient.user.findUnique({
       where: { id },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bio: true,
-        banner_url: true,
-        avatar_url: true,
-        website_url: true,
-        localization: true,
-        birth_date: true,
-        created_at: true,
-      },
+      select: this.selectGetUsersNotPassword,
     });
+
+    if (!userRepo) {
+      return userRepo;
+    }
+
+    const user = UserMappers.toUserDTO(userRepo);
+
     return user;
   }
 
   async add(data: IUserRepository.addInput): IUserRepository.addOutput {
-    const user = await this.prismaClient.user.create({
+    const userRepo = await this.prismaClient.user.create({
       data,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bio: true,
-        password: false,
-        banner_url: true,
-        avatar_url: true,
-        website_url: true,
-        localization: true,
-        birth_date: true,
-        created_at: true,
-      },
+      select: this.selectGetUsersNotPassword,
     });
+    const user = UserMappers.toUserDTO(userRepo);
+
     return user;
   }
 
-  async update({ id, data }: userUpdateDTO): IUserRepository.addOutput {
-    const user = await this.prismaClient.user.update({
+  async update({ id, data }: IUserRepository.updateInput): IUserRepository.addOutput {
+    const userRepo = await this.prismaClient.user.update({
       where: { id },
       data,
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bio: true,
-        password: false,
-        banner_url: true,
-        avatar_url: true,
-        website_url: true,
-        localization: true,
-        birth_date: true,
-        created_at: true,
-      },
+      select: this.selectGetUsersNotPassword,
     });
+
+    const user = UserMappers.toUserDTO(userRepo);
+
     return user;
   }
 
-  async findByEmail({ email }: { email: string }): IUserRepository.findOutput<userStoreDTO> {
-    const user = await this.prismaClient.user.findUnique({
+  async findByEmail({ email }: { email: string }): IUserRepository.findOutput<UserStoredDTO> {
+    const userRepo = await this.prismaClient.user.findUnique({
       where: { email },
     });
+
+    if (!userRepo) {
+      return userRepo;
+    }
+    const user = UserMappers.fromDbToUserStoredDTO(userRepo);
+
     return user;
   }
 
-  async findByName({ name }: { name: string }): IUserRepository.findOutput<userResponse[]> {
+  async findByName({ name }: { name: string }): IUserRepository.findOutput<UserStoredDTO[]> {
     const user = (await this.prismaClient.user.findMany({
       where: {
         name: {
@@ -129,27 +131,19 @@ export class UserRepository implements IUserRepository {
     });
     return user;
   }
-  async find(data: any): IUserRepository.findOutput<userResponse[]> {
+  async find(data: any): IUserRepository.findOutput<UserDTO[]> {
     const page = data.page < 1 ? 1 : data.page;
     const limit = data.limit < 1 ? 10 : data.limit;
 
-    const users = await this.prismaClient.user.findMany({
+    const usersRepo = await this.prismaClient.user.findMany({
       skip: (page - 1) * data.limit,
       take: limit,
       orderBy: { created_at: 'desc' },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bio: true,
-        banner_url: true,
-        avatar_url: true,
-        website_url: true,
-        localization: true,
-        birth_date: true,
-        created_at: true,
-      },
+      select: this.selectGetUsersNotPassword,
     });
+
+    const users = usersRepo.map((user) => UserMappers.toUserDTO(user));
+
     return users;
   }
 }

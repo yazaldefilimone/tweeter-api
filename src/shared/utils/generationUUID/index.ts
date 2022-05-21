@@ -1,8 +1,8 @@
-import { v4 } from 'uuid';
+import { randomUUID } from 'crypto';
 
 export const generationUUID = function ({ isDomain }: { isDomain: boolean }) {
   if (isDomain) {
-    return v4();
+    return randomUUID();
   }
-  return `tweeter-${v4()}`;
+  return `tweeter-${randomUUID()}`;
 };

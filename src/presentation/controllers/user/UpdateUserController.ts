@@ -7,11 +7,11 @@ export class UpdateUserProfileController {
     this.userUseCase = userUseCase;
   }
   async execute(request: Request, response: Response): Promise<Response> {
-    const { name, email, password, bio, website_url, localization, birth_date } = request.body;
+    const { name, email, password, website, location, dateOfBirth, bio } = request.body;
 
     const userOrError = await this.userUseCase.updateProfile({
       id: request.userId,
-      data: { name, email, password, website_url, bio, localization, birth_date },
+      data: { name, email, password, website, location, dateOfBirth, bio },
     });
 
     if (userOrError.isLeft()) {

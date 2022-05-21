@@ -1,6 +1,6 @@
 import { Either, right, left } from '@/shared/error-handler/either';
 import { isValidEmail, isValidName, isValidPassword, isValidBio } from '@/shared/validators';
-import { user } from '@/domain/user/dtos';
+import { UserBuildDTO } from '@/domain/user/dtos';
 import { buildUserContracts } from './contracts';
 import { InvalidBioError, InvalidEmailError, InvalidNameError, InvalidPasswordError } from '../errors';
 
@@ -30,7 +30,7 @@ export class User {
     return isValid ? right(bio) : left(new InvalidBioError(bio));
   }
 
-  public build(data: user): buildUserContracts {
+  public build(data: UserBuildDTO): buildUserContracts {
     const Objects: ObjectsBuildType = {
       name: this.isValidName(data.name),
       email: this.isValidEmail(data.email),
@@ -59,9 +59,9 @@ export class User {
       email: Objects.email.value,
       password: Objects.password.value,
       bio: Objects.bio.value,
-      website_url: data.website_url,
-      localization: data.localization,
-      birth_date: data.birth_date,
+      website: data.website,
+      location: data.location,
+      date_of_birth: data.dateOfBirth,
       created_at: new Date(),
     });
   }

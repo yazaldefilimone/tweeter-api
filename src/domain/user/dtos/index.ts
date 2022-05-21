@@ -1,80 +1,73 @@
-export type user = {
-  name: string;
+export type UserCreateDTO = {
   email: string;
+  name: string;
   password: string;
+  avatarUrl: string;
   bio: string;
-  website_url: string | null;
-  localization: string | null;
-  birth_date: Date | null;
 };
 
-export type userStoreDTO = {
-  id: string;
+export type UserBuildDTO = {
   name: string;
   email: string;
   password: string;
+  website: string | null;
+  location: string;
+  dateOfBirth: Date;
   bio: string;
-  banner_url: string | null;
+};
+
+export type UserBuildResponseDTO = {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  website: string | null;
+  location: string;
+  date_of_birth: Date;
+  bio: string;
+  created_at: Date;
+};
+
+export type UserStoredDTO = {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
+  avatarUrl: string | null;
+  bannerUrl: string | null;
+  website: string | null;
+  location: string;
+  dateOfBirth: string;
+  bio: string;
+  createdAt: string;
+};
+
+export type UserDbStoredDTO = {
+  id: string;
+  email: string;
+  password: string;
+  name: string;
   avatar_url: string | null;
-  website_url: string | null;
-  localization: string | null;
-  birth_date: Date | null;
-  created_at: Date;
-};
-export type userResponse = {
-  id: string;
-  name: string;
-  email: string;
-  bio: string;
   banner_url: string | null;
-  avatar_url: string | null;
-  website_url: string | null;
-  localization: string | null;
-  birth_date: Date | null;
-  created_at: Date;
-};
-
-export type userParam = {
-  email: string;
-  password: string;
-};
-export type userToken = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    bio: string;
-    banner_url: string | null;
-    avatar_url: string | null;
-    website_url: string | null;
-    localization: string | null;
-    birth_date: Date | null;
-    created_at: Date;
-  };
-  token: string;
-};
-
-export type userUpdateDTO = {
-  id: string;
-  data: {
-    name: string;
-    email: string;
-    password: string;
-    bio: string;
-    website_url: string | null;
-    localization: string | null;
-    birth_date: Date | null;
-  };
-};
-export type userUpdateInputDTO = {
-  name: string;
-  email: string;
-  password: string;
+  website: string | null;
+  location: string;
+  date_of_birth: Date;
   bio: string;
-  website_url: string | null;
-  localization: string | null;
-  birth_date: Date | null;
   created_at: Date;
 };
+export type UserDbStoredNotPasswordDTO = Omit<UserDbStoredDTO, 'password'>;
 
-export type buildType = Omit<Omit<userStoreDTO, 'avatar_url'>, 'banner_url'>;
+export type UserProfileDTO = {
+  name: string | undefined;
+  website: string | undefined;
+  location: string;
+  date_of_birth: string;
+  bio: string | undefined;
+};
+
+export type UserSimpleDTO = {
+  password: string;
+  email: string;
+};
+
+export type UserDTO = Omit<UserStoredDTO, 'password'>;

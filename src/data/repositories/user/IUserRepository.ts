@@ -1,21 +1,21 @@
-import { buildType, user, userParam, userResponse, userStoreDTO, userUpdateDTO, userUpdateInputDTO } from '@/domain/user/dtos';
+import { UserBuildDTO, UserBuildResponseDTO, UserDTO, UserStoredDTO } from '@/domain/user/dtos';
 
 export interface IUserRepository {
   add: (data: IUserRepository.addInput) => IUserRepository.addOutput;
-  find: ({ page, limit }: { page: number; limit: number }) => IUserRepository.findOutput<userResponse[]>;
-  findById: ({ id }: { id: string }) => IUserRepository.findOutput<userResponse>;
-  findByName: ({ name }: { name: string }) => IUserRepository.findOutput<userResponse[]>;
-  findByEmail: ({ email }: { email: string }) => IUserRepository.findOutput<userStoreDTO>;
+  find: ({ page, limit }: { page: number; limit: number }) => IUserRepository.findOutput<UserDTO[]>;
+  findById: ({ id }: { id: string }) => IUserRepository.findOutput<UserDTO>;
+  findByName: ({ name }: { name: string }) => IUserRepository.findOutput<UserDTO[]>;
+  findByEmail: ({ email }: { email: string }) => IUserRepository.findOutput<UserStoredDTO>;
   delete: ({ id }: { id: string }) => Promise<{ id: string }>;
-  update: (data: userUpdateDTO) => IUserRepository.addOutput;
-  updateAvatar: (data: { id: string; avatar: string }) => IUserRepository.addOutput;
-  updateBanner: (data: { id: string; banner: string }) => IUserRepository.addOutput;
+  update: (data: IUserRepository.updateInput) => IUserRepository.addOutput;
+  updateAvatar: (data: { id: string; avatar: string }) => IUserRepository.updateAssets;
+  updateBanner: (data: { id: string; banner: string }) => IUserRepository.updateAssets;
 }
 
 export namespace IUserRepository {
-  export type updateAssets = Promise<{ id: string }>;
-  export type addInput = buildType;
-  export type updateInput = userUpdateDTO;
-  export type addOutput = Promise<userResponse>;
+  export type updateAssets = Promise<UserDTO>;
+  export type addInput = UserBuildResponseDTO;
+  export type updateInput = { id: string; data: UserBuildDTO };
+  export type addOutput = Promise<UserDTO>;
   export type findOutput<T> = Promise<T | null>;
 }
