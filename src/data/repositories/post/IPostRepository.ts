@@ -3,7 +3,7 @@ import { postUseCaseSuccess, postUseCaseSuccessMany } from '@/domain/post/use-ca
 
 export interface IPostRepository {
   add: (data: IPostRepository.addInput) => IPostRepository.addOutput;
-  find: () => IPostRepository.findMany;
+  find: ({ page, limit }: { page: number; limit: number }) => IPostRepository.findMany;
   findById: ({ id }: { id: string }) => IPostRepository.findOutput;
   findByUser: (data: { userId: string; page: number; limit: number }) => IPostRepository.findMany;
   delete: ({ id }: { id: string }) => Promise<{ id: string }>;
