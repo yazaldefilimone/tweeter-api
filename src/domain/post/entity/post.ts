@@ -1,5 +1,7 @@
 import { Either, left, right } from '@/shared/error-handler/either';
+import { generationUUID } from '@/shared/utils/generationUUID';
 import { isValidPostContent } from '@/shared/validators';
+import { randomUUID } from 'crypto';
 import { post } from '../dtos';
 import { InvalidContentError } from '../errors';
 import { buildContentResponse } from './contracts';
@@ -21,9 +23,11 @@ export class Post {
     }
 
     return right({
+      id: generationUUID({ isDomain: true }),
       banner_url: data.banner_url,
       content: data.content,
       author_id: data.author_id,
+      created_at: new Date(),
     });
   }
 }

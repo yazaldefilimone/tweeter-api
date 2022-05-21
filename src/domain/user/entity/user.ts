@@ -4,7 +4,7 @@ import { user } from '@/domain/user/dtos';
 import { buildUserContracts } from './contracts';
 import { InvalidBioError, InvalidEmailError, InvalidNameError, InvalidPasswordError } from '../errors';
 
-import { randomUUID } from 'crypto';
+import { generationUUID } from '@/shared/utils/generationUUID';
 
 type ObjectsBuildType = {
   [key: string]: Either<Error, string>;
@@ -54,7 +54,7 @@ export class User {
       return left(Objects.bio.value);
     }
     return right({
-      id: randomUUID(),
+      id: generationUUID({ isDomain: true }),
       name: Objects.name.value,
       email: Objects.email.value,
       password: Objects.password.value,

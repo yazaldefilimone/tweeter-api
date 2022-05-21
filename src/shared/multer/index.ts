@@ -1,13 +1,12 @@
 import multer from 'multer';
-import { randomUUID } from 'crypto';
 import { env } from '@/shared/env';
-console.log(env.uploads);
+import { generationUUID } from '@/shared/utils/generationUUID';
 
 export const multerImageUploadConfig = {
   storage: multer.diskStorage({
     destination: env.uploads.path,
     filename: (req, file, callback) => {
-      const fileHash = randomUUID();
+      const fileHash = generationUUID({ isDomain: false });
       const fileName = `${fileHash}-${file.originalname.split(' ').join('')}`;
       return callback(null, fileName);
     },
