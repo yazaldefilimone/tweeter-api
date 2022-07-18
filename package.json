@@ -42,7 +42,7 @@
     "swagger-ui-express": "4.3.0"
   },
   "devDependencies": {
-    "@swc/jest": "0.2.20",
+    "@swc/jest": "0.2.22",
     "@types/axios": "0.14.0",
     "@types/bcryptjs": "2.4.2",
     "@types/cors": "2.8.12",
