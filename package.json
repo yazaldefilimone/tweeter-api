@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@prisma/client": "3.14.0",
-    "@swc/core": "1.2.160",
+    "@swc/core": "1.2.218",
     "axios": "0.24.0",
     "bcryptjs": "2.4.3",
     "cors": "2.8.5",
